@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -1133,11 +1133,11 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is my crypto advance payment refundable?<i class="faq-icon">+</i></button>
-        <div class="faq-a">Yes â€” 100%. If GTA 6 is delayed, cancelled, or if you change your mind before the balance payment deadline, your full crypto advance is refunded to your original wallet address within 5â€“7 business days. No questions asked.</div>
+        <div class="faq-a">Yes — 100%. If GTA 6 is delayed, cancelled, or if you change your mind before the balance payment deadline, your full crypto advance is refunded to your original wallet address within 5–7 business days. No questions asked.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Which cryptocurrencies do you accept?<i class="faq-icon">+</i></button>
-        <div class="faq-a">We currently accept Bitcoin (BTC), Ethereum (ETH), USDT (ERC-20), USDC, and Solana (SOL) via BTCPay Server. After confirming your booking, you receive a wallet address and exact amount to send. Your Booking ID is emailed automatically once the blockchain confirms the transaction â€” usually within 1â€“10 minutes.</div>
+        <div class="faq-a">We currently accept Bitcoin (BTC), Ethereum (ETH), USDT (ERC-20), USDC, and Solana (SOL) via BTCPay Server. After confirming your booking, you receive a wallet address and exact amount to send. Your Booking ID is emailed automatically once the blockchain confirms the transaction — usually within 1–10 minutes.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">When do I pay the full balance?<i class="faq-icon">+</i></button>
@@ -1149,13 +1149,13 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I track my pre-booking?<i class="faq-icon">+</i></button>
-        <div class="faq-a">Once your crypto transaction is confirmed, you receive a unique Booking ID (format: GTA6-XXXX) by email. You can use this ID on our Track Order page at any time to check the status of your booking. Keep it safe â€” it's your proof of reservation.</div>
+        <div class="faq-a">Once your crypto transaction is confirmed, you receive a unique Booking ID (format: GTA6-XXXX) by email. You can use this ID on our Track Order page at any time to check the status of your booking. Keep it safe — it's your proof of reservation.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- â•â•â• FOOTER â•â•â• -->
+<!-- ——— FOOTER ——— -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1163,11 +1163,11 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
         <div class="footer-logo">GTA6<span>Store</span>.in</div>
         <div class="footer-tagline">The Independent GTA 6 Pre-Booking Platform</div>
         <div class="footer-crypto-row">
-          <span class="footer-crypto-tag">â‚¿ BTC</span>
-          <span class="footer-crypto-tag">Îž ETH</span>
-          <span class="footer-crypto-tag">â‚® USDT</span>
-          <span class="footer-crypto-tag">â—Ž USDC</span>
-          <span class="footer-crypto-tag">â—Ž SOL</span>
+          <span class="footer-crypto-tag">₿ BTC</span>
+          <span class="footer-crypto-tag">Ξ ETH</span>
+          <span class="footer-crypto-tag">₮ USDT</span>
+          <span class="footer-crypto-tag">◯ USDC</span>
+          <span class="footer-crypto-tag">◯ SOL</span>
         </div>
       </div>
       <div class="footer-links">
@@ -1186,52 +1186,52 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       <div class="footer-disclaimer">
         gta6store.co.uk is an independent third-party pre-booking service and is not affiliated with, endorsed by, or officially connected to Rockstar Games, Take-Two Interactive, Inc., Sony Interactive Entertainment, or Microsoft Corporation. Grand Theft Auto and GTA are registered trademarks of Take-Two Interactive Software, Inc. All trademarks are property of their respective owners. Crypto payments processed via BTCPay Server.
       </div>
-      <div>Â© 2026 gta6store.co.uk Â· All rights reserved</div>
+      <div>© 2026 gta6store.co.uk · All rights reserved</div>
     </div>
   </div>
 </footer>
 
-<!-- â•â•â• PAYMENT MODAL â•â•â• -->
+<!-- ——— PAYMENT MODAL ——— -->
 <div class="modal-overlay" id="payment-modal">
   <div class="modal pay-modal">
     <div class="pay-modal-header">
       <div class="pay-modal-title">Send Crypto</div>
-      <button class="pay-modal-close" onclick="closePaymentModal()">âœ•</button>
+      <button class="pay-modal-close" onclick="closePaymentModal()">✖</button>
     </div>
 
     <!-- STEP 1: Creating payment -->
     <div class="pay-step active" id="pay-step-creating">
       <div class="pay-creating">
         <div class="pay-spinner"></div>
-        <div class="pay-creating-text">Creating your payment addressâ€¦</div>
+        <div class="pay-creating-text">Creating your payment address…</div>
         <div style="font-size:12px;color:var(--text3);">Connecting to BTCPay Server</div>
       </div>
     </div>
 
     <!-- STEP 2: Send payment -->
     <div class="pay-step" id="pay-step-send">
-      <div id="pm-demo-badge" style="display:none;background:rgba(201,168,76,.08);border:.5px solid var(--border2);padding:.5rem 1rem;margin-bottom:1rem;font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">âš  Demo Mode â€” BTCPay Server API key not set. Real payments disabled.</div>
+      <div id="pm-demo-badge" style="display:none;background:rgba(201,168,76,.08);border:.5px solid var(--border2);padding:.5rem 1rem;margin-bottom:1rem;font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">⚠️ Demo Mode — BTCPay Server API key not set. Real payments disabled.</div>
 
       <div class="pay-summary-row">
         <span class="pay-summary-label">Booking ID</span>
-        <span class="pay-summary-value" id="pm-booking-id">â€”</span>
+        <span class="pay-summary-value" id="pm-booking-id">—</span>
       </div>
       <div class="pay-summary-row">
         <span class="pay-summary-label">Edition</span>
-        <span class="pay-summary-value" id="pm-edition">â€”</span>
+        <span class="pay-summary-value" id="pm-edition">—</span>
       </div>
       <div class="pay-summary-row">
         <span class="pay-summary-label">USD Value</span>
-        <span class="pay-summary-value" id="pm-usd-amount">â€”</span>
+        <span class="pay-summary-value" id="pm-usd-amount">—</span>
       </div>
       <div class="pay-summary-row" style="cursor:pointer" onclick="copyAmount()" title="Click to copy amount">
-        <span class="pay-summary-label">Send Exactly (<span id="pm-currency">â€”</span>)</span>
-        <span class="pay-summary-value gold" id="pm-crypto-amount">â€”</span>
+        <span class="pay-summary-label">Send Exactly (<span id="pm-currency">—</span>)</span>
+        <span class="pay-summary-value gold" id="pm-crypto-amount">—</span>
       </div>
 
       <div class="pay-address-box" id="pm-address-full" onclick="copyAddress()">
         <div class="pay-address-label">Wallet Address</div>
-        <div class="pay-address-text" id="pm-address">â€”</div>
+        <div class="pay-address-text" id="pm-address">—</div>
         <span class="pay-address-copy">Copy</span>
       </div>
 
@@ -1241,7 +1241,7 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
         </div>
         <div class="pay-qr-info">
           <div class="pay-warning">
-            <strong>âš  Send EXACTLY the crypto amount shown.</strong><br/>
+            <strong>⚠️ Send EXACTLY the crypto amount shown.</strong><br/>
             Do not round up or down. Any difference will delay confirmation.
           </div>
           <div class="pay-expiry-row">
@@ -1251,32 +1251,32 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       </div>
 
       <button class="btn-primary" style="width:100%;justify-content:center;font-size:13px;padding:16px;margin-top:.5rem;" onclick="iSentPayment()">
-        I've Sent the Payment â†’
+        I've Sent the Payment →
       </button>
-      <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:.75rem;">Blockchain confirmation usually takes 1â€“10 minutes</div>
+      <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:.75rem;">Blockchain confirmation usually takes 1–10 minutes</div>
     </div>
 
     <!-- STEP 3: Checking -->
     <div class="pay-step" id="pay-step-checking">
       <div class="pay-checking">
         <div class="pay-checking-dots"><span></span><span></span><span></span></div>
-        <div class="pay-checking-label">Checking Blockchainâ€¦</div>
-        <div class="pay-checking-sub">This usually takes 1â€“10 minutes. Keep this window open.</div>
+        <div class="pay-checking-label">Checking Blockchain…</div>
+        <div class="pay-checking-sub">This usually takes 1–10 minutes. Keep this window open.</div>
         <div class="pay-status-row">
-          <span class="pay-status-chip active">1 Â· Waiting</span>
-          <span class="pay-status-chip">2 Â· Confirming</span>
-          <span class="pay-status-chip">3 Â· Confirmed</span>
+          <span class="pay-status-chip active">1 · Waiting</span>
+          <span class="pay-status-chip">2 · Confirming</span>
+          <span class="pay-status-chip">3 · Confirmed</span>
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:.5rem;">Polling every 10 secondsâ€¦</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:.5rem;">Polling every 10 seconds…</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- â•â•â• SUCCESS MODAL â•â•â• -->
+<!-- ——— SUCCESS MODAL ——— -->
 <div class="modal-overlay" id="success-modal">
   <div class="modal">
-    <div class="modal-icon">ðŸŽ®</div>
+    <div class="modal-icon">🎮</div>
     <div class="modal-title">Booking Confirmed!</div>
     <div style="font-size:13px;color:var(--text3);margin-bottom:.25rem;">Your Booking ID</div>
     <div class="modal-id" id="modal-booking-id">GTA6-0000</div>
@@ -1285,19 +1285,35 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- —————————————————————————————————————————————————————————————————————————————
      SCRIPTS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+————————————————————————————————————————————————————————————————————————————— -->
 <script>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* —————————————————————————————————————————————————————————————————————————————
    SUPABASE CONFIG
    Replace these two values after creating your Supabase project:
-   1. Go to supabase.com â†’ your project â†’ Settings â†’ API
-   2. Copy "Project URL" â†’ paste below as SUPABASE_URL
-   3. Copy "anon public" key â†’ paste below as SUPABASE_KEY
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-const SUPABASE_URL  = 'postgresql://postgres:PlayGTA#2026@db.egyvrdobllhwqwrfpkrg.supabase.co:5432/postgres';   // e.g. https://xyzabc.supabase.co
-const SUPABASE_KEY  = 'sb_publishable_ZFSmkYuW7lsUYoHpeo4_Iw_9s68t1Fd'; // starts with eyJ...
+   1. Go to supabase.com → your project → Settings → API
+   2. Copy "Project URL" → paste below as SUPABASE_URL
+   3. Copy "anon public" key → paste below as SUPABASE_KEY
+   
+   async function submitBooking() {
+     // Prevent double-submit if button already disabled
+     const btn = document.getElementById('submit-btn');
+     if (btn && btn.disabled) return;
+
+     const name   = document.getElementById('cust-name').value.trim();
+     const email  = document.getElementById('cust-email').value.trim();
+     const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if (!name)                { shakeInput('cust-name');  alert('Please enter your full name.'); return; }
+     if (!emailRx.test(email)) { shakeInput('cust-email'); alert('Please enter a valid email address.'); return; }
+     
+     currentName  = name; currentEmail = email;
+     if (btn) { btn.textContent = 'Creating payment…'; btn.style.opacity = '.7'; btn.disabled = true; }
+     ...
+   }
+————————————————————————————————————————————————————————————————————————————— */
+const SUPABASE_URL  = 'https://egyvrdobllhwqwrfpkrg.supabase.co';
+const SUPABASE_KEY  = 'sb_publishable_ZFSmkYuW7lsUYoHpeo4_Iw_9s68t1Fd';
 
 let db = null;
 let siteSettings = {};
@@ -1635,6 +1651,11 @@ function startExpiryTimer(secs) {
       clearInterval(expiryInterval);
       if (el) el.textContent = 'EXPIRED';
       if (el) el.style.color = '#E57C71';
+      // Auto-close modal after 2 seconds so user isn't stuck
+      setTimeout(() => {
+        closePaymentModal();
+        alert('Payment address expired. Please start a new booking.');
+      }, 2000);
     }
     remaining--;
   }
@@ -1708,23 +1729,30 @@ function updateCheckStep(step) {
 function onPaymentConfirmed() {
   closePaymentModal();
 
-  /* Update success modal */
-  document.getElementById('modal-booking-id').textContent = currentBookingId;
-  document.getElementById('modal-msg').textContent =
+  /* Update success modal — guard each element */
+  const bookingIdEl = document.getElementById('modal-booking-id');
+  if (bookingIdEl) bookingIdEl.textContent = currentBookingId;
+
+  const msgEl = document.getElementById('modal-msg');
+  if (msgEl) msgEl.textContent =
     `Hi ${currentName}! Your payment was confirmed on the blockchain. ` +
     `Booking ID: ${currentBookingId}. A confirmation email will be sent to ${currentEmail}. ` +
     `We'll notify you 7 days before November 19, 2026 to complete your balance payment.`;
 
-  document.getElementById('success-modal').classList.add('show');
+  const successModal = document.getElementById('success-modal');
+  if (successModal) successModal.classList.add('show');
 
   /* Increment visible counter */
   const stat = document.getElementById('stat-bookings');
-  const cur  = parseInt(stat.textContent.replace(/,/g,''));
-  stat.textContent = (cur + 1).toLocaleString();
+  if (stat) {
+    const cur = parseInt(stat.textContent.replace(/,/g,'')) || 0;
+    stat.textContent = (cur + 1).toLocaleString();
+  }
 }
 
 function shakeInput(id) {
   const el = document.getElementById(id);
+  if (!el) return;  // Guard: element may not exist
   el.style.borderColor = '#C0392B';
   el.style.animation = 'none';
   setTimeout(() => el.style.borderColor = '', 2000);
