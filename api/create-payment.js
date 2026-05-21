@@ -3,13 +3,15 @@
 // CryptAPI generates a unique forwarding address per payment.
 // When user pays → CryptAPI forwards to YOUR wallet → calls your webhook.
 //
-// REQUIRED ENV VARS:
+// REQUIRED ENV VARS (set in Vercel → Project Settings → Environment Variables):
 //   CRYPTAPI_BTC_ADDRESS   your Bitcoin wallet address
 //   CRYPTAPI_ETH_ADDRESS   your Ethereum wallet address
 //   CRYPTAPI_USDT_ADDRESS  your USDT TRC-20 address
 //   CRYPTAPI_USDC_ADDRESS  your USDC ERC-20 address
 //   CRYPTAPI_SOL_ADDRESS   your Solana wallet address
 //   SITE_URL               https://gta6store.co.uk
+//   SUPABASE_URL           https://egyvrdobllhwqwrfpkrg.supabase.co
+//   SUPABASE_SERVICE_KEY   your Supabase service_role secret key
 
 const { sendEmail, emails } = require('./send-email');
 
@@ -17,12 +19,19 @@ const CRYPTAPI = 'https://api.cryptapi.io';
 
 // Map frontend crypto → { coin path for CryptAPI API, env var with your wallet }
 const COIN_MAP = {
+  'Bitcoin':        { coin: 'btc',         env: 'CRYPTAPI_BTC_ADDRESS',  ticker: 'BTC'  },
   'Bitcoin (BTC)':  { coin: 'btc',         env: 'CRYPTAPI_BTC_ADDRESS',  ticker: 'BTC'  },
+  'Ethereum':       { coin: 'eth',         env: 'CRYPTAPI_ETH_ADDRESS',  ticker: 'ETH'  },
   'Ethereum (ETH)': { coin: 'eth',         env: 'CRYPTAPI_ETH_ADDRESS',  ticker: 'ETH'  },
   'USDT':           { coin: 'trc20/usdt',  env: 'CRYPTAPI_USDT_ADDRESS', ticker: 'USDT' },
   'USDC':           { coin: 'erc20/usdc',  env: 'CRYPTAPI_USDC_ADDRESS', ticker: 'USDC' },
+  'Solana':         { coin: 'sol',         env: 'CRYPTAPI_SOL_ADDRESS',  ticker: 'SOL'  },
   'Solana (SOL)':   { coin: 'sol',         env: 'CRYPTAPI_SOL_ADDRESS',  ticker: 'SOL'  },
 };
+
+// Approximate demo rates (NOT used in production — only for demo mode display)
+const DEMO_RATES    = { BTC: 65000, ETH: 3500, USDT: 1, USDC: 1, SOL: 170 };
+const DEMO_DECIMALS = { BTC: 8,     ETH: 6,    USDT: 2, USDC: 2, SOL: 4   };
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin',  process.env.SITE_URL || '*');
@@ -48,15 +57,21 @@ module.exports = async function handler(req, res) {
   const yourWallet = process.env[coinInfo.env];
   const siteUrl    = process.env.SITE_URL || 'https://gta6store.co.uk';
 
-  // ── Demo mode: wallet address not configured yet ──────────────
+  // ── Demo mode: wallet address not configured yet ──────────────────────────
   if (!yourWallet) {
-    console.log(`[create-payment] Demo mode — ${coinInfo.env} not set`);
+    console.log(`[create-payment] DEMO MODE — ${coinInfo.env} not set in Vercel env vars`);
+
+    // Correct rates per crypto (USDT/USDC are stablecoins — 1 USDT = $1 USD)
+    const rate     = DEMO_RATES[coinInfo.ticker]    || 1;
+    const decimals = DEMO_DECIMALS[coinInfo.ticker] || 6;
+    const demoAmt  = (parseFloat(advancePrice) / rate).toFixed(decimals);
+
     await saveBooking({ bookingId, name, email, wallet, edition, platform, fullPrice, advancePrice, cryptoMethod, txRef: 'DEMO' });
     return res.json({
       demo:           true,
-      payment_id:     bookingId,             // use bookingId for status polling
-      pay_address:    'DEMO_ADDRESS_SET_' + coinInfo.env + '_IN_VERCEL',
-      pay_amount:     (parseFloat(advancePrice) / 60000).toFixed(8),
+      payment_id:     bookingId,
+      pay_address:    'DEMO — Add ' + coinInfo.env + ' to Vercel Environment Variables',
+      pay_amount:     demoAmt,
       pay_currency:   coinInfo.ticker,
       price_amount:   advancePrice,
       price_currency: 'USD',
@@ -66,7 +81,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // ── 1. Get live crypto price conversion from CryptAPI ─────────
+    // ── 1. Get live crypto price conversion from CryptAPI ─────────────────────
     let cryptoAmount = null;
     try {
       const priceRes = await fetch(
@@ -80,8 +95,7 @@ module.exports = async function handler(req, res) {
       console.warn('[create-payment] Price fetch failed, will use estimate:', e.message);
     }
 
-    // ── 2. Create unique payment address via CryptAPI ─────────────
-    // Callback URL — CryptAPI calls this GET URL when payment arrives
+    // ── 2. Create unique payment address via CryptAPI ─────────────────────────
     const callbackUrl = `${siteUrl}/api/payment-webhook?bookingId=${encodeURIComponent(bookingId)}&coin=${encodeURIComponent(coinInfo.coin)}`;
 
     const createRes = await fetch(
@@ -105,13 +119,13 @@ module.exports = async function handler(req, res) {
 
     console.log(`[CryptAPI] Payment address created: ${createData.address_in} for booking ${bookingId}`);
 
-    // ── 3. Save booking to Supabase ───────────────────────────────
+    // ── 3. Save booking to Supabase ───────────────────────────────────────────
     await saveBooking({
       bookingId, name, email, wallet, edition, platform,
       fullPrice, advancePrice, cryptoMethod, txRef: createData.address_in
     });
 
-    // ── 4. Send "payment address ready" email ─────────────────────
+    // ── 4. Send "payment address ready" email ────────────────────────────────
     sendEmail(emails.bookingPending({
       name:        name || 'GTA6 Fan',
       email,
@@ -126,9 +140,9 @@ module.exports = async function handler(req, res) {
       expiresAt:   new Date(Date.now() + 20 * 60 * 1000).toISOString()
     })).catch(e => console.error('[create-payment] email error:', e.message));
 
-    // ── 5. Return to frontend ─────────────────────────────────────
+    // ── 5. Return to frontend ─────────────────────────────────────────────────
     return res.status(200).json({
-      payment_id:               bookingId,        // used for status polling
+      payment_id:               bookingId,
       pay_address:              createData.address_in,
       pay_amount:               cryptoAmount,
       pay_currency:             coinInfo.ticker,
@@ -148,7 +162,7 @@ module.exports = async function handler(req, res) {
 async function saveBooking({ bookingId, name, email, wallet, edition, platform, fullPrice, advancePrice, cryptoMethod, txRef }) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY;
-  if (!url || !key) return;
+  if (!url || !key) { console.warn('[Supabase] No URL or key configured'); return; }
   try {
     const r = await fetch(`${url}/rest/v1/bookings`, {
       method: 'POST',
@@ -167,10 +181,11 @@ async function saveBooking({ bookingId, name, email, wallet, edition, platform, 
         advance_price:  parseFloat(advancePrice),
         crypto_method:  cryptoMethod,
         crypto_tx_hash: txRef || null,
-        status:         'payment_pending'
+        status:         'pending'
       })
     });
     if (!r.ok) console.error('[Supabase] Insert failed:', await r.text());
+    else console.log('[Supabase] Booking saved:', bookingId);
   } catch (e) {
     console.error('[Supabase] Error:', e.message);
   }
