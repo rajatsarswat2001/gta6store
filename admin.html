@@ -17,7 +17,7 @@
   --bg:#07070A;--bg2:#0B0B0E;--bg3:#0F0F14;
   --surface:#13131A;--surface2:#18181F;--surface3:#1E1E28;--surface4:#242430;
   --border:rgba(255,255,255,.055);--border2:rgba(201,168,76,.20);--border3:rgba(201,168,76,.45);
-  --text:#F0EDE4;--text2:#9A9489;--text3:#524E48;--text4:#2E2C28;
+  --text:#F0EDE4;--text2:#9A9489;--text3:#6E6860;--text4:#3E3C38;
   --font-title:'Bebas Neue','Arial Black',sans-serif;
   --font-body:'Barlow',Arial,sans-serif;
   --font-cond:'Barlow Condensed','Arial Narrow',sans-serif;
@@ -27,7 +27,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{height:100%;}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.6;min-height:100%;overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;min-height:100%;overflow-x:hidden;}
 a{color:inherit;text-decoration:none;}
 button{cursor:pointer;font-family:inherit;border:none;}
 input,select,textarea{font-family:inherit;color:var(--text);}
@@ -502,7 +502,11 @@ textarea.form-ctrl{resize:vertical;min-height:100px;line-height:1.7;}
 
             <div class="form-row">
               <label class="form-label" for="f-cover">Cover Image URL <span class="hint">&nbsp;— Cloudinary or any direct link</span></label>
-              <input type="url" class="form-ctrl" id="f-cover" placeholder="https://res.cloudinary.com/…/image.jpg"/>
+              <div style="display:flex;gap:.75rem;align-items:flex-start;">
+                <input type="url" class="form-ctrl" id="f-cover" placeholder="https://res.cloudinary.com/…/image.jpg" oninput="previewImg(this,'prev-cover')"/>
+                <div id="prev-cover" style="width:80px;height:54px;background:var(--surface3);border:.5px solid var(--border);flex-shrink:0;overflow:hidden;border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;">No img</div>
+              </div>
+              <div style="font-size:11px;color:var(--text3);margin-top:.4rem;">Recommended: 1200×630px (16:9) — <a href="https://cloudinary.com/users/register_free" target="_blank" style="color:var(--gold);">Upload free at Cloudinary ↗</a></div>
             </div>
 
             <hr class="sec-div"/>
@@ -659,8 +663,15 @@ textarea.form-ctrl{resize:vertical;min-height:100px;line-height:1.7;}
               <label class="form-label">Features <span class="hint">&nbsp;— separate with | pipe</span></label>
               <textarea class="form-ctrl" id="s-std-features" rows="3" placeholder="Feature 1|Feature 2|Feature 3"></textarea>
             </div>
+            <div class="form-row" style="margin-top:1rem;">
+              <label class="form-label">Edition Image URL <span class="hint">&nbsp;— recommended 600x400px — <a href="https://cloudinary.com/users/register_free" target="_blank" style="color:var(--gold)">Upload free at Cloudinary ↗</a></span></label>
+              <div style="display:flex;gap:.75rem;align-items:flex-start;">
+                <input type="url" class="form-ctrl" id="s-std-img" placeholder="https://res.cloudinary.com/…/image.jpg" oninput="previewImg(this,'prev-std')"/>
+                <div id="prev-std" style="width:80px;height:54px;background:var(--surface3);border:.5px solid var(--border);flex-shrink:0;border-radius:2px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;">No img</div>
+              </div>
+            </div>
             <div style="margin-top:1rem;">
-              <button class="btn btn-gold" onclick="saveSettings(['std_name','std_price','std_advance','std_features'])">Save Standard Edition</button>
+              <button class="btn btn-gold" onclick="saveSettings(['std_name','std_price','std_advance','std_features','edition_std_img'])">Save Standard Edition</button>
             </div>
           </div>
         </div>
@@ -686,8 +697,15 @@ textarea.form-ctrl{resize:vertical;min-height:100px;line-height:1.7;}
               <label class="form-label">Features <span class="hint">&nbsp;— separate with | pipe</span></label>
               <textarea class="form-ctrl" id="s-deluxe-features" rows="3" placeholder="Feature 1|Feature 2|Feature 3"></textarea>
             </div>
+            <div class="form-row" style="margin-top:1rem;">
+              <label class="form-label">Edition Image URL <span class="hint">&nbsp;— recommended 600x400px — <a href="https://cloudinary.com/users/register_free" target="_blank" style="color:var(--gold)">Upload free at Cloudinary ↗</a></span></label>
+              <div style="display:flex;gap:.75rem;align-items:flex-start;">
+                <input type="url" class="form-ctrl" id="s-deluxe-img" placeholder="https://res.cloudinary.com/…/image.jpg" oninput="previewImg(this,'prev-deluxe')"/>
+                <div id="prev-deluxe" style="width:80px;height:54px;background:var(--surface3);border:.5px solid var(--border);flex-shrink:0;border-radius:2px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;">No img</div>
+              </div>
+            </div>
             <div style="margin-top:1rem;">
-              <button class="btn btn-gold" onclick="saveSettings(['deluxe_name','deluxe_price','deluxe_advance','deluxe_features'])">Save Deluxe Edition</button>
+              <button class="btn btn-gold" onclick="saveSettings(['deluxe_name','deluxe_price','deluxe_advance','deluxe_features','edition_deluxe_img'])">Save Deluxe Edition</button>
             </div>
           </div>
         </div>
@@ -713,8 +731,15 @@ textarea.form-ctrl{resize:vertical;min-height:100px;line-height:1.7;}
               <label class="form-label">Features <span class="hint">&nbsp;— separate with | pipe</span></label>
               <textarea class="form-ctrl" id="s-pc-features" rows="3" placeholder="Feature 1|Feature 2|Feature 3"></textarea>
             </div>
+            <div class="form-row" style="margin-top:1rem;">
+              <label class="form-label">Edition Image URL <span class="hint">&nbsp;— recommended 600x400px — <a href="https://cloudinary.com/users/register_free" target="_blank" style="color:var(--gold)">Upload free at Cloudinary ↗</a></span></label>
+              <div style="display:flex;gap:.75rem;align-items:flex-start;">
+                <input type="url" class="form-ctrl" id="s-pc-img" placeholder="https://res.cloudinary.com/…/image.jpg" oninput="previewImg(this,'prev-pc')"/>
+                <div id="prev-pc" style="width:80px;height:54px;background:var(--surface3);border:.5px solid var(--border);flex-shrink:0;border-radius:2px;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;">No img</div>
+              </div>
+            </div>
             <div style="margin-top:1rem;">
-              <button class="btn btn-gold" onclick="saveSettings(['pc_name','pc_price','pc_advance','pc_features'])">Save PC Edition</button>
+              <button class="btn btn-gold" onclick="saveSettings(['pc_name','pc_price','pc_advance','pc_features','edition_pc_img'])">Save PC Edition</button>
             </div>
           </div>
         </div>
@@ -1007,14 +1032,31 @@ async function updateBookingStatus() {
   const newStatus = document.getElementById('modal-status').value;
   if (!activeBookingId || !db) return;
   try {
-    const { error } = await db.from('bookings').update({status:newStatus}).eq('id',activeBookingId);
+    const booking = allBookings.find(b => b.id === activeBookingId);
+    const oldStatus = booking ? booking.status : null;
+
+    const { error } = await db.from('bookings').update({status: newStatus}).eq('id', activeBookingId);
     if (error) throw error;
-    toast('Status updated to: '+newStatus,'success');
+
+    /* Auto-update pre-book counter in site_settings */
+    if (oldStatus !== newStatus) {
+      const current = parseInt(siteSettings.stat_bookings || 0);
+      let next = current;
+      if (newStatus === 'confirmed' && oldStatus !== 'confirmed') next = current + 1;
+      else if (oldStatus === 'confirmed' && newStatus !== 'confirmed') next = Math.max(0, current - 1);
+      if (next !== current) {
+        await db.from('site_settings').update({ value: String(next) }).eq('key', 'stat_bookings');
+        siteSettings.stat_bookings = String(next);
+        toast('Pre-book counter auto-updated to ' + next, 'info');
+      }
+    }
+
+    toast('Status updated to: ' + newStatus, 'success');
     closeModal();
     loadBookings();
     loadDashboard();
   } catch(e) {
-    toast('Update failed: '+e.message,'error');
+    toast('Update failed: ' + e.message, 'error');
   }
 }
 
@@ -1280,6 +1322,15 @@ function fillSettingsForm() {
   setVal('s-seo-kw',        s.seo_keywords||'');
   setVal('s-og-title',      s.og_title||'');
   setVal('s-og-img',        s.og_image_url||'');
+  setVal('s-std-img',       s.edition_std_img||'');
+  setVal('s-deluxe-img',    s.edition_deluxe_img||'');
+  setVal('s-pc-img',        s.edition_pc_img||'');
+  // Refresh image previews
+  ['s-std-img','s-deluxe-img','s-pc-img','s-og-img'].forEach(id => {
+    const el = document.getElementById(id);
+    const mapId = {'s-std-img':'prev-std','s-deluxe-img':'prev-deluxe','s-pc-img':'prev-pc'};
+    if (el && mapId[id]) previewImg(el, mapId[id]);
+  });
 }
 
 /* Map of setting key → HTML input id */
@@ -1305,7 +1356,10 @@ const SETTING_MAP = {
   seo_description:  's-seo-desc',
   seo_keywords:     's-seo-kw',
   og_title:         's-og-title',
-  og_image_url:     's-og-img'
+  og_image_url:     's-og-img',
+  edition_std_img:  's-std-img',
+  edition_deluxe_img:'s-deluxe-img',
+  edition_pc_img:   's-pc-img'
 };
 
 async function saveSettings(keys) {
@@ -1377,6 +1431,15 @@ function cntCh(inputId, countId, max) {
 /* ═══════════════════════════════════════════════════
    TOAST
 ═══════════════════════════════════════════════════ */
+function previewImg(input, previewId) {
+  const el = document.getElementById(previewId);
+  if (!el) return;
+  const url = input.value.trim();
+  if (!url) { el.innerHTML = '<span style="font-size:10px;color:var(--text3)">No img</span>'; el.style.backgroundImage=''; return; }
+  el.innerHTML = '';
+  el.style.cssText += ';background-image:url(' + url + ');background-size:cover;background-position:center;';
+}
+
 function toast(msg, type='info') {
   const c=document.getElementById('toast');
   const el=document.createElement('div');

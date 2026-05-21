@@ -842,7 +842,7 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
 
     <div class="editions-grid">
       <!-- Standard -->
-      <div class="edition-card reveal" onclick="selectEdition('Standard Edition', 69.99, 20)">
+      <div class="edition-card reveal" data-edition="standard" onclick="selectEditionByKey('standard')">
         <div class="edition-top-line"></div>
         <div class="edition-platform">
           <span class="platform-tag">PS5</span>
@@ -861,7 +861,7 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       </div>
 
       <!-- Deluxe (featured) -->
-      <div class="edition-card featured reveal reveal-d1" onclick="selectEdition('Deluxe Edition', 99.99, 35)">
+      <div class="edition-card featured reveal reveal-d1" data-edition="deluxe" onclick="selectEditionByKey('deluxe')">
         <div class="edition-top-line"></div>
         <div class="edition-platform">
           <span class="platform-tag">PS5</span>
@@ -881,7 +881,7 @@ footer { background:var(--bg2); border-top:.5px solid var(--border); padding:4re
       </div>
 
       <!-- PC -->
-      <div class="edition-card reveal reveal-d2" onclick="selectEdition('PC Edition', 69.99, 25)">
+      <div class="edition-card reveal reveal-d2" data-edition="pc" onclick="selectEditionByKey('pc')">
         <div class="edition-top-line"></div>
         <div class="edition-platform">
           <span class="platform-tag">PC</span>
@@ -1505,6 +1505,17 @@ function selectEdition(name, price, advance) {
   for (const opt of sel.options) { if (opt.value.startsWith(key)) { sel.value = opt.value; break; } }
   updateSummary();
   document.getElementById('booking').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* selectEditionByKey - reads live Supabase prices so card and booking form stay in sync */
+function selectEditionByKey(key) {
+  var nameMap = { standard: 'Standard Edition', deluxe: 'Deluxe Edition', pc: 'PC Edition' };
+  var defPrice   = { standard: 69.99, deluxe: 99.99, pc: 69.99 };
+  var defAdvance = { standard: 20,    deluxe: 35,    pc: 25    };
+  var name    = siteSettings[key + '_name']                || nameMap[key];
+  var price   = parseFloat(siteSettings[key + '_price'])   || defPrice[key];
+  var advance = parseFloat(siteSettings[key + '_advance']) || defAdvance[key];
+  selectEdition(name, price, advance);
 }
 
 /* â”€â”€ Booking ID generator â”€â”€ */
