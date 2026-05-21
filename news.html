@@ -1,0 +1,423 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GTA 6 News &amp; Updates â€” GTA6Store | Release Date, Price, Pre-Order</title>
+<meta name="description" content="Latest GTA 6 news â€” release date confirmed Nov 19 2026, PC launch, crypto pre-booking, edition prices. Stay updated on Grand Theft Auto VI."/>
+<meta name="keywords" content="GTA 6 news, GTA 6 release date 2026, GTA 6 PC, Grand Theft Auto 6 updates, GTA 6 pre-order news"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="author" content="GTA6Store"/>
+<meta name="theme-color" content="#080809"/>
+<link rel="canonical" href="https://gta6store.co.uk/news/"/>
+<link rel="alternate" hreflang="en" href="https://gta6store.co.uk/news/"/>
+<link rel="alternate" hreflang="x-default" href="https://gta6store.co.uk/news/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://gta6store.co.uk/news/"/>
+<meta property="og:title" content="GTA 6 News &amp; Updates â€” GTA6Store"/>
+<meta property="og:description" content="Latest GTA 6 news â€” release date, PC launch, crypto pre-booking. Stay updated on Grand Theft Auto VI."/>
+<meta property="og:image" content="https://gta6store.co.uk/og-image.jpg"/>
+<meta property="og:site_name" content="GTA6Store"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="GTA 6 News &amp; Updates â€” GTA6Store"/>
+<meta name="twitter:description" content="Latest GTA 6 news â€” release date, PC launch, crypto pre-booking."/>
+<meta name="twitter:image" content="https://gta6store.co.uk/og-image.jpg"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/></noscript>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#E8C96A; --gold-dim:rgba(201,168,76,.10); --gold-glow:rgba(201,168,76,.22);
+  --red:#C0392B; --green:#2ECC71;
+  --bg:#080809; --bg2:#0C0C0F; --bg3:#101014;
+  --surface:#13131A; --surface2:#18181F; --surface3:#1E1E27;
+  --border:rgba(255,255,255,.055); --border2:rgba(201,168,76,.20); --border3:rgba(201,168,76,.45);
+  --text:#F0EDE4; --text2:#9A9489; --text3:#524E48;
+  --font-title:'Bebas Neue','Arial Black',sans-serif;
+  --font-body:'Barlow',Arial,sans-serif;
+  --font-cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1); --dur:.25s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;height:auto;}
+button{cursor:pointer;font-family:inherit;background:none;border:none;}
+
+@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer-bg{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-d1{transition-delay:.08s;}.reveal-d2{transition-delay:.16s;}.reveal-d3{transition-delay:.24s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:62px;background:rgba(8,8,9,.88);backdrop-filter:blur(24px) saturate(160%);border-bottom:.5px solid var(--border);transition:border-color var(--dur) var(--ease);}
+nav.scrolled{border-bottom-color:var(--border2);}
+.nav-logo{font-family:var(--font-title);font-size:21px;letter-spacing:3px;color:var(--gold);}
+.nav-logo span{color:var(--text3);}
+.nav-links{display:flex;gap:2.5rem;}
+.nav-links a{font-family:var(--font-cond);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);position:relative;padding-bottom:3px;transition:color var(--dur) var(--ease);}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:.5px;background:var(--gold);transition:width var(--dur) var(--ease);}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;background:var(--gold);color:#000;padding:8px 22px;font-weight:700;transition:background var(--dur) var(--ease);}
+.nav-cta:hover{background:var(--gold-light);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:6px;}
+.nav-toggle span{width:22px;height:1.5px;background:var(--text2);display:block;transition:all var(--dur) var(--ease);}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(8,8,9,.98);backdrop-filter:blur(24px);border-bottom:.5px solid var(--border2);padding:2rem 2.5rem;flex-direction:column;gap:1.5rem;z-index:999;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:var(--font-cond);font-size:20px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);transition:color var(--dur) var(--ease);}
+.mobile-menu a:hover{color:var(--gold);}
+
+/* PAGE HERO */
+.page-hero{padding:130px 2.5rem 5rem;position:relative;overflow:hidden;border-bottom:.5px solid var(--border);}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 80% at 70% 50%,rgba(192,57,43,.10),transparent),radial-gradient(ellipse 40% 60% at 15% 60%,rgba(201,168,76,.05),transparent);pointer-events:none;}
+.page-hero-inner{max-width:1200px;margin:0 auto;position:relative;}
+.section-label{font-family:var(--font-cond);font-size:10px;letter-spacing:4.5px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;display:flex;align-items:center;gap:12px;}
+.section-label::before{content:'';width:28px;height:.5px;background:var(--gold);flex-shrink:0;}
+.page-title{font-family:var(--font-title);font-size:clamp(52px,8vw,96px);line-height:.92;letter-spacing:2px;margin-bottom:1rem;}
+.page-title span{color:var(--gold);}
+.page-sub{font-size:15px;color:var(--text2);max-width:520px;line-height:1.8;}
+.divider{width:48px;height:1.5px;background:linear-gradient(90deg,var(--gold),transparent);margin:1.2rem 0;}
+
+/* FILTER BAR */
+.filter-bar{background:var(--bg2);border-bottom:.5px solid var(--border);padding:1rem 2.5rem;position:sticky;top:62px;z-index:100;backdrop-filter:blur(16px);}
+.filter-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+.filter-label{font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-right:.25rem;}
+.filter-btn{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;background:var(--surface);border:.5px solid var(--border);color:var(--text3);transition:all var(--dur) var(--ease);}
+.filter-btn:hover{background:var(--surface2);color:var(--text);}
+.filter-btn.active{background:var(--gold);color:#000;border-color:var(--gold);}
+.filter-count{font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-left:auto;}
+
+/* MAIN */
+main{max-width:1200px;margin:0 auto;padding:4rem 2.5rem;}
+
+/* SKELETON */
+.skeleton-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--border);border:.5px solid var(--border);}
+.skeleton-card{background:var(--surface);padding:0;}
+.skeleton-img{height:200px;background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:800px 100%;animation:shimmer-bg 1.5s infinite;}
+.skeleton-body{padding:1.5rem;}
+.skeleton-line{height:12px;border-radius:2px;background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:800px 100%;animation:shimmer-bg 1.5s infinite;margin-bottom:.75rem;}
+.skeleton-line.short{width:40%;}
+.skeleton-line.long{width:100%;}
+.skeleton-line.mid{width:72%;}
+
+/* ARTICLE GRID */
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;background:var(--border);border:.5px solid var(--border);}
+.article-card{background:var(--surface);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background var(--dur) var(--ease);cursor:pointer;}
+.article-card:hover{background:var(--surface2);}
+.article-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:.5px;background:linear-gradient(90deg,transparent,var(--gold-glow),transparent);opacity:0;transition:opacity var(--dur) var(--ease);}
+.article-card:hover::after{opacity:1;}
+
+.card-img{height:200px;overflow:hidden;position:relative;flex-shrink:0;}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease);}
+.article-card:hover .card-img img{transform:scale(1.04);}
+.card-img-placeholder{width:100%;height:100%;display:flex;align-items:flex-end;padding:1.5rem;}
+.card-img-placeholder.official{background:linear-gradient(135deg,#1A0A08 0%,#3D1510 50%,#1A0A08 100%);}
+.card-img-placeholder.platform{background:linear-gradient(135deg,#0A0A18 0%,#151535 50%,#0A0A18 100%);}
+.card-img-placeholder.crypto{background:linear-gradient(135deg,#0A1208 0%,#122010 50%,#0A1208 100%);}
+.card-img-placeholder.news{background:linear-gradient(135deg,#0E0E12 0%,#1A1A22 50%,#0E0E12 100%);}
+.card-img-title-bg{font-family:var(--font-title);font-size:44px;letter-spacing:2px;opacity:.12;color:#fff;line-height:1;}
+
+.card-body{padding:1.75rem;flex:1;display:flex;flex-direction:column;}
+.card-tag{font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+.card-tag::before{content:'';width:16px;height:.5px;background:var(--red);}
+.card-tag.platform-tag-color{color:#6B9FD4;}
+.card-tag.platform-tag-color::before{background:#6B9FD4;}
+.card-tag.crypto-tag-color{color:var(--gold);}
+.card-tag.crypto-tag-color::before{background:var(--gold);}
+.card-title{font-family:var(--font-cond);font-size:22px;font-weight:700;line-height:1.3;margin-bottom:.75rem;color:var(--text);transition:color var(--dur) var(--ease);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.article-card:hover .card-title{color:var(--gold);}
+.card-excerpt{font-size:13px;color:var(--text2);line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1rem;border-top:.5px solid var(--border);}
+.card-date{font-family:var(--font-cond);font-size:10px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;}
+.card-arrow{font-family:var(--font-cond);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-6px);transition:all var(--dur) var(--ease);}
+.article-card:hover .card-arrow{opacity:1;transform:translateX(0);}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:6rem 2rem;color:var(--text3);}
+.empty-icon{font-size:52px;margin-bottom:1rem;opacity:.4;}
+.empty-title{font-family:var(--font-title);font-size:36px;letter-spacing:2px;margin-bottom:.5rem;color:var(--text2);}
+.empty-sub{font-size:14px;}
+
+/* CTA SECTION */
+.cta-section{background:var(--bg2);border-top:.5px solid var(--border);margin-top:6rem;padding:5rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 100% at 50% 50%,rgba(192,57,43,.07),transparent);pointer-events:none;}
+.cta-eyebrow{font-family:var(--font-cond);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.cta-title{font-family:var(--font-title);font-size:clamp(44px,7vw,80px);line-height:.94;letter-spacing:2px;margin-bottom:1rem;}
+.cta-title span{color:var(--gold);}
+.cta-sub{font-size:15px;color:var(--text2);margin-bottom:2.5rem;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;padding:15px 36px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;position:relative;overflow:hidden;transition:all var(--dur) var(--ease);}
+.btn-primary::before{content:'';position:absolute;top:0;left:-100%;bottom:0;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:left .55s ease;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.28);}
+.btn-primary:hover::before{left:100%;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:.5px solid var(--border);padding:4rem 2.5rem 2.5rem;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:3rem;margin-bottom:3rem;}
+.footer-logo{font-family:var(--font-title);font-size:28px;letter-spacing:3px;color:var(--gold);margin-bottom:.4rem;}
+.footer-logo span{color:var(--text3);}
+.footer-tagline{font-size:13px;color:var(--text3);margin-bottom:1rem;}
+.footer-links{display:flex;gap:1.75rem;flex-wrap:wrap;align-items:flex-start;}
+.footer-links a{font-family:var(--font-cond);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);transition:color var(--dur) var(--ease);}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;padding-top:2rem;border-top:.5px solid var(--border);font-size:11px;color:var(--text3);}
+.footer-disclaimer{max-width:680px;line-height:1.85;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav .nav-links,nav .nav-cta{display:none;}
+  .nav-toggle{display:flex;}
+  .page-hero{padding:110px 1.5rem 3.5rem;}
+  .filter-bar{padding:.75rem 1.5rem;}
+  main{padding:2.5rem 1.5rem;}
+  .cta-section{padding:3.5rem 1.5rem;}
+  footer{padding:3rem 1.5rem 2rem;}
+  .footer-top{flex-direction:column;gap:1.5rem;}
+  .footer-bottom{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="/index.html" class="nav-logo">GTA6<span>Store</span>.in</a>
+  <div class="nav-links">
+    <a href="/index.html#pre-order">Pre-Order</a>
+    <a href="/index.html#how-it-works">How it Works</a>
+    <a href="/news.html" class="active">News</a>
+    <a href="/index.html#faq">FAQ</a>
+  </div>
+  <a href="/index.html#booking" class="nav-cta">Pre-Book Now</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/index.html#pre-order" onclick="closeMobileMenu()">Pre-Order</a>
+  <a href="/index.html#how-it-works" onclick="closeMobileMenu()">How it Works</a>
+  <a href="/news.html" onclick="closeMobileMenu()">News</a>
+  <a href="/index.html#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="/index.html#booking" class="nav-cta" style="width:fit-content" onclick="closeMobileMenu()">Pre-Book Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="section-label">GTA6Store Editorial</div>
+    <h1 class="page-title">GTA 6 News &amp;<br/><span>Updates</span></h1>
+    <div class="divider"></div>
+    <p class="page-sub">Stay informed on the latest GTA 6 release news, platform updates, and crypto pre-booking guides.</p>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-tag="ALL" onclick="filterArticles('ALL', this)">All</button>
+    <button class="filter-btn" data-tag="Official" onclick="filterArticles('Official', this)">Official</button>
+    <button class="filter-btn" data-tag="Platform" onclick="filterArticles('Platform', this)">Platform</button>
+    <button class="filter-btn" data-tag="Crypto" onclick="filterArticles('Crypto', this)">Crypto</button>
+    <button class="filter-btn" data-tag="News" onclick="filterArticles('News', this)">General</button>
+    <span class="filter-count" id="filter-count">Loadingâ€¦</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div id="articles-container">
+    <!-- Skeleton loading state -->
+    <div class="skeleton-grid" id="skeleton">
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line long"></div><div class="skeleton-line mid"></div><div class="skeleton-line long"></div><div class="skeleton-line short"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line long"></div><div class="skeleton-line mid"></div><div class="skeleton-line long"></div><div class="skeleton-line short"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line long"></div><div class="skeleton-line mid"></div><div class="skeleton-line long"></div><div class="skeleton-line short"></div></div></div>
+    </div>
+    <div class="articles-grid" id="articles-grid" style="display:none;"></div>
+    <div class="empty-state" id="empty-state" style="display:none;">
+      <div class="empty-icon">ðŸ“°</div>
+      <div class="empty-title">No Articles Found</div>
+      <p class="empty-sub">No articles match this filter. Try another category.</p>
+    </div>
+  </div>
+</main>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-eyebrow">Ready to Secure Your Copy?</div>
+  <h2 class="cta-title">Pre-Book <span>GTA 6</span> Now</h2>
+  <p class="cta-sub">Pay a small crypto advance â€” 100% refundable. Worldwide. Instant Booking ID.</p>
+  <a href="/index.html#booking" class="btn-primary">Pre-Book Now â†’</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">GTA6<span>Store</span>.in</div>
+        <div class="footer-tagline">The Independent GTA 6 Pre-Booking Platform</div>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html#pre-order">Pre-Order</a>
+        <a href="/index.html#booking">Book Now</a>
+        <a href="/news.html">News</a>
+        <a href="/index.html#faq">FAQ</a>
+        <a href="/index.html">Home</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-disclaimer">gta6store.co.uk is an independent third-party pre-booking service, not affiliated with Rockstar Games or Take-Two Interactive. Grand Theft Auto and GTA are registered trademarks of Take-Two Interactive Software, Inc.</div>
+      <div>Â© 2026 gta6store.co.uk</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* â”€â”€ Supabase Config â”€â”€ */
+const SUPABASE_URL = 'https://egyvrdobllhwqwrfpkrg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ZFSmkYuW7lsUYoHpeo4_Iw_9s68t1Fd';
+
+let db = null;
+let allArticles = [];
+let activeTag = 'ALL';
+
+/* â”€â”€ Fallback articles (shown when Supabase not configured) â”€â”€ */
+const FALLBACK_ARTICLES = [
+  { slug:'gta-6-release-date-november-2026', title:'GTA 6 Officially Confirmed for November 19, 2026', excerpt:'Rockstar Games has officially announced the final release date for Grand Theft Auto VI. The game will launch worldwide on PS5 and Xbox Series X/S on November 19, 2026 â€” making it one of the biggest gaming releases in history.', tag:'Official', published_date:'2026-05-01', cover_image_url:'' },
+  { slug:'gta-6-pc-version-2027', title:'PC Version Reportedly Coming in 2027 â€” What We Know', excerpt:'Leaked reports suggest a PC release could follow the console launch by 12â€“18 months, potentially launching on Epic Games Store and Steam simultaneously. Our PC Edition waitlist is already open.', tag:'Platform', published_date:'2026-04-10', cover_image_url:'' },
+  { slug:'gta-6-pre-booking-with-crypto', title:'Why GTA 6 Pre-Booking With Crypto Makes Sense in 2026', excerpt:'Crypto payments offer instant global transfers, no chargebacks, and lower fees. We accept Bitcoin, Ethereum, USDT, USDC, and Solana â€” giving gamers worldwide a frictionless pre-booking experience.', tag:'Crypto', published_date:'2026-03-15', cover_image_url:'' }
+];
+
+/* â”€â”€ Tag color class â”€â”€ */
+function tagClass(tag) {
+  const t = (tag || '').toLowerCase();
+  if (t === 'official') return '';
+  if (t === 'platform') return 'platform-tag-color';
+  if (t === 'crypto')   return 'crypto-tag-color';
+  return '';
+}
+
+/* â”€â”€ Placeholder bg class â”€â”€ */
+function placeholderClass(tag) {
+  const t = (tag || '').toLowerCase();
+  return t === 'official' ? 'official' : t === 'platform' ? 'platform' : t === 'crypto' ? 'crypto' : 'news';
+}
+
+/* â”€â”€ Format date â”€â”€ */
+function fmtDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+}
+
+/* â”€â”€ Render articles â”€â”€ */
+function renderArticles(articles) {
+  const grid = document.getElementById('articles-grid');
+  const empty = document.getElementById('empty-state');
+
+  if (!articles.length) {
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    document.getElementById('filter-count').textContent = '0 articles';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+  document.getElementById('filter-count').textContent = articles.length + ' article' + (articles.length > 1 ? 's' : '');
+
+  grid.innerHTML = articles.map(a => `
+    <div class="article-card reveal" onclick="location.href='/article.html?slug=${encodeURIComponent(a.slug)}'">
+      <div class="card-img">
+        ${a.cover_image_url
+          ? `<img src="${a.cover_image_url}" alt="${a.title}" loading="lazy"/>`
+          : `<div class="card-img-placeholder ${placeholderClass(a.tag)}"><span class="card-img-title-bg">GTA VI</span></div>`
+        }
+      </div>
+      <div class="card-body">
+        <div class="card-tag ${tagClass(a.tag)}">${a.tag || 'News'}</div>
+        <div class="card-title">${a.title}</div>
+        <p class="card-excerpt">${a.excerpt || ''}</p>
+        <div class="card-footer">
+          <span class="card-date">${fmtDate(a.published_date)}</span>
+          <span class="card-arrow">Read more â†’</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  /* re-trigger reveal observer */
+  document.querySelectorAll('.article-card.reveal').forEach(el => revealObserver.observe(el));
+}
+
+/* â”€â”€ Filter â”€â”€ */
+function filterArticles(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeTag = tag;
+  const filtered = tag === 'ALL' ? allArticles : allArticles.filter(a => a.tag === tag);
+  renderArticles(filtered);
+}
+
+/* â”€â”€ Load articles â”€â”€ */
+async function loadArticles() {
+  document.getElementById('skeleton').style.display = 'grid';
+  document.getElementById('articles-grid').style.display = 'none';
+
+  if (!db) {
+    allArticles = FALLBACK_ARTICLES;
+  } else {
+    try {
+      const { data, error } = await db
+        .from('articles')
+        .select('slug, title, excerpt, tag, cover_image_url, published_date')
+        .eq('is_published', true)
+        .order('published_date', { ascending: false });
+      allArticles = (!error && data && data.length) ? data : FALLBACK_ARTICLES;
+    } catch(e) {
+      allArticles = FALLBACK_ARTICLES;
+    }
+  }
+
+  document.getElementById('skeleton').style.display = 'none';
+  renderArticles(allArticles);
+}
+
+/* â”€â”€ Nav â”€â”€ */
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+const navToggle = document.getElementById('nav-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+function closeMobileMenu() { navToggle.classList.remove('open'); mobileMenu.classList.remove('open'); }
+
+/* â”€â”€ Reveal â”€â”€ */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.10 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* â”€â”€ Init â”€â”€ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (!SUPABASE_URL.includes('YOUR_') && !SUPABASE_KEY.includes('YOUR_')) {
+    try { db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
+  }
+  loadArticles();
+});
+</script>
+</body>
+</html>
+
+

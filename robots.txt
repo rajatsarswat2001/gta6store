@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+# Block crawlers from API routes
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://gta6store.co.uk/sitemap.xml

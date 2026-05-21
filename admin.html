@@ -1,0 +1,638 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — GTA6Store</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#E8C96A; --gold-dim:rgba(201,168,76,.10); --gold-glow:rgba(201,168,76,.22);
+  --red:#C0392B; --green:#27AE60;
+  --bg:#080809; --bg2:#0C0C0F;
+  --surface:#13131A; --surface2:#18181F; --surface3:#1E1E27;
+  --border:rgba(255,255,255,.055); --border2:rgba(201,168,76,.20); --border3:rgba(201,168,76,.45);
+  --text:#F0EDE4; --text2:#9A9489; --text3:#524E48;
+  --font-title:'Bebas Neue','Arial Black',sans-serif;
+  --font-body:'Barlow',Arial,sans-serif;
+  --font-cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1); --dur:.25s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;font-family:inherit;}
+input,select,textarea{font-family:inherit;}
+
+/* ══ LOGIN GATE ══ */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--bg);}
+.login-box{background:var(--surface);border:.5px solid var(--border2);padding:3.5rem;width:100%;max-width:400px;position:relative;overflow:hidden;}
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:.5px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.login-logo{font-family:var(--font-title);font-size:32px;letter-spacing:4px;color:var(--gold);margin-bottom:.25rem;}
+.login-logo span{color:var(--text3);}
+.login-sub{font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:2.5rem;}
+.form-label{display:block;font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem;}
+.form-input{width:100%;background:var(--surface2);border:.5px solid var(--border);color:var(--text);padding:11px 14px;outline:none;font-size:14px;transition:border-color var(--dur) var(--ease);margin-bottom:1.25rem;}
+.form-input:focus{border-color:var(--gold);}
+.login-error{font-size:12px;color:#E57C71;margin-bottom:1rem;display:none;}
+.login-error.show{display:block;}
+.btn-gold{background:var(--gold);color:#000;border:none;width:100%;padding:13px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:background var(--dur) var(--ease);}
+.btn-gold:hover{background:var(--gold-light);}
+.login-note{font-size:11px;color:var(--text3);margin-top:1.25rem;line-height:1.7;}
+
+/* ══ ADMIN LAYOUT ══ */
+#admin-screen{display:none;min-height:100vh;flex-direction:column;}
+.admin-topbar{height:56px;background:var(--bg2);border-bottom:.5px solid var(--border2);display:flex;align-items:center;justify-content:space-between;padding:0 1.75rem;position:sticky;top:0;z-index:100;}
+.admin-logo{font-family:var(--font-title);font-size:20px;letter-spacing:3px;color:var(--gold);}
+.admin-logo span{color:var(--text3);}
+.admin-topbar-right{display:flex;align-items:center;gap:1rem;}
+.admin-user-tag{font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);background:var(--surface);border:.5px solid var(--border);padding:5px 12px;}
+.admin-logout{font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);background:none;border:.5px solid var(--border);padding:5px 12px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease);}
+.admin-logout:hover{color:var(--red);border-color:var(--red);}
+
+.admin-body{display:grid;grid-template-columns:340px 1fr;flex:1;height:calc(100vh - 56px);overflow:hidden;}
+
+/* ══ ARTICLE LIST PANEL ══ */
+.list-panel{background:var(--bg2);border-right:.5px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
+.list-header{padding:1.25rem 1.5rem;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:10;}
+.list-header-title{font-family:var(--font-cond);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text2);}
+.btn-new{background:var(--gold);color:#000;border:none;padding:7px 16px;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:background var(--dur) var(--ease);}
+.btn-new:hover{background:var(--gold-light);}
+.list-search{padding:.75rem 1.5rem;border-bottom:.5px solid var(--border);}
+.list-search input{width:100%;background:var(--surface);border:.5px solid var(--border);color:var(--text);padding:8px 12px;font-size:13px;outline:none;transition:border-color var(--dur) var(--ease);}
+.list-search input:focus{border-color:var(--border2);}
+.list-search input::placeholder{color:var(--text3);}
+.article-list{flex:1;}
+.article-list-item{padding:1rem 1.5rem;border-bottom:.5px solid var(--border);cursor:pointer;position:relative;transition:background var(--dur) var(--ease);}
+.article-list-item:hover,.article-list-item.active{background:var(--surface);}
+.article-list-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);}
+.ali-tag{font-family:var(--font-cond);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.3rem;}
+.ali-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ali-meta{display:flex;align-items:center;justify-content:space-between;margin-top:.4rem;}
+.ali-date{font-family:var(--font-cond);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
+.ali-status{font-family:var(--font-cond);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;}
+.ali-status.published{color:var(--green);background:rgba(39,174,96,.1);border:.5px solid rgba(39,174,96,.2);}
+.ali-status.draft{color:var(--text3);background:var(--surface2);border:.5px solid var(--border);}
+.list-empty{padding:3rem 1.5rem;text-align:center;color:var(--text3);font-size:13px;}
+
+/* ══ EDITOR PANEL ══ */
+.editor-panel{overflow-y:auto;background:var(--bg);}
+.editor-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text3);gap:1rem;}
+.editor-placeholder-icon{font-size:48px;opacity:.25;}
+.editor-placeholder-text{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;}
+
+.editor-form{padding:2rem 2.5rem;max-width:920px;}
+.editor-form-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:.5px solid var(--border);}
+.editor-form-title{font-family:var(--font-title);font-size:38px;letter-spacing:2px;}
+.editor-actions{display:flex;gap:.75rem;flex-wrap:wrap;}
+.btn-save{background:var(--gold);color:#000;border:none;padding:10px 24px;font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:background var(--dur) var(--ease);}
+.btn-save:hover{background:var(--gold-light);}
+.btn-delete{background:transparent;color:var(--red);border:.5px solid rgba(192,57,43,.4);padding:10px 18px;font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all var(--dur) var(--ease);}
+.btn-delete:hover{background:rgba(192,57,43,.1);border-color:var(--red);}
+.btn-preview{background:transparent;color:var(--text2);border:.5px solid var(--border);padding:10px 18px;font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all var(--dur) var(--ease);}
+.btn-preview:hover{border-color:var(--border2);color:var(--text);}
+
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.editor-grid.full{grid-template-columns:1fr;}
+.form-group{margin-bottom:.1rem;}
+.eform-label{display:block;font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:.4rem;}
+.eform-label span{color:var(--red);font-size:10px;}
+.char-count{float:right;font-size:9px;letter-spacing:0;text-transform:none;}
+.eform-input{width:100%;background:var(--surface);border:.5px solid var(--border);color:var(--text);padding:10px 13px;font-size:14px;outline:none;transition:border-color var(--dur) var(--ease);}
+.eform-input:focus{border-color:var(--gold);}
+.eform-input::placeholder{color:var(--text3);font-size:13px;}
+select.eform-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23524E48' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;cursor:pointer;}
+select.eform-input option{background:var(--surface2);}
+textarea.eform-input{resize:vertical;min-height:120px;line-height:1.7;}
+textarea.eform-input.content-area{min-height:360px;font-size:13px;font-family:var(--font-body);}
+.slug-row{display:flex;gap:.5rem;}
+.slug-row input{flex:1;}
+.btn-gen-slug{background:var(--surface2);border:.5px solid var(--border);color:var(--text3);padding:10px 14px;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;transition:all var(--dur) var(--ease);}
+.btn-gen-slug:hover{border-color:var(--border2);color:var(--text);}
+.toggle-row{display:flex;align-items:center;gap:1rem;}
+.toggle-switch{position:relative;width:44px;height:24px;}
+.toggle-switch input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:var(--surface2);border:.5px solid var(--border);transition:background var(--dur) var(--ease);cursor:pointer;}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:var(--text3);transition:all var(--dur) var(--ease);}
+.toggle-switch input:checked+.toggle-slider{background:var(--green);border-color:rgba(39,174,96,.3);}
+.toggle-switch input:checked+.toggle-slider::before{transform:translateX(20px);background:#fff;}
+.toggle-label{font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);}
+.section-divider{border:none;border-top:.5px solid var(--border);margin:1.75rem 0;}
+.section-heading{font-family:var(--font-cond);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem;display:flex;align-items:center;gap:10px;}
+.section-heading::after{content:'';flex:1;height:.5px;background:var(--border);}
+.content-toolbar{display:flex;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;}
+.toolbar-btn{background:var(--surface);border:.5px solid var(--border);color:var(--text3);padding:5px 12px;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:1px;transition:all var(--dur) var(--ease);}
+.toolbar-btn:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.content-hint{font-size:11px;color:var(--text3);margin-top:.4rem;line-height:1.6;}
+
+/* ══ TOAST ══ */
+#toast{position:fixed;bottom:2rem;right:2rem;z-index:9000;display:flex;flex-direction:column;gap:.5rem;}
+.toast-item{padding:12px 20px;font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;animation:toast-in .3s ease;border:.5px solid transparent;}
+.toast-item.success{background:rgba(39,174,96,.12);border-color:rgba(39,174,96,.35);color:var(--green);}
+.toast-item.error{background:rgba(192,57,43,.12);border-color:rgba(192,57,43,.35);color:#E57C71;}
+.toast-item.info{background:var(--gold-dim);border-color:var(--border2);color:var(--gold);}
+@keyframes toast-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+
+/* ══ STATS BAR ══ */
+.stats-bar{display:flex;gap:1.5rem;padding:1rem 1.5rem;border-bottom:.5px solid var(--border);background:rgba(201,168,76,.02);}
+.stat-chip{font-family:var(--font-cond);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:.4rem;}
+.stat-chip strong{color:var(--text);}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  .admin-body{grid-template-columns:1fr;}
+  .list-panel{height:auto;max-height:300px;}
+  .editor-panel{height:auto;}
+  .admin-body{height:auto;overflow:visible;}
+  .editor-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOGIN SCREEN ══════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">GTA6<span>Store</span></div>
+    <div class="login-sub">Admin Panel — Content Manager</div>
+    <form onsubmit="doLogin(event)">
+      <label class="form-label" for="admin-pass">Password</label>
+      <input type="password" class="form-input" id="admin-pass" placeholder="Enter admin password" autocomplete="current-password"/>
+      <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+      <button type="submit" class="btn-gold">Login to Admin Panel</button>
+    </form>
+    <p class="login-note">⚠️ This panel is for authorised content editors only. All actions are logged. Default password: <strong>gta6admin2026</strong> — change this in the code before going live.</p>
+  </div>
+</div>
+
+<!-- ══════════ ADMIN SCREEN ══════════ -->
+<div id="admin-screen">
+  <!-- Top Bar -->
+  <div class="admin-topbar">
+    <div class="admin-logo">GTA6<span>Store</span> <span style="color:var(--border2);font-size:16px;margin:0 6px;">|</span><span style="color:var(--text3);font-size:16px;">Admin</span></div>
+    <div class="admin-topbar-right">
+      <a href="/news.html" target="_blank" class="admin-user-tag">↗ View News</a>
+      <a href="/index.html" target="_blank" class="admin-user-tag">↗ View Site</a>
+      <button class="admin-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <!-- LEFT: Article List -->
+    <div class="list-panel">
+      <div class="list-header">
+        <span class="list-header-title">Articles</span>
+        <button class="btn-new" onclick="newArticle()">+ New Article</button>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-chip">Total: <strong id="stat-total">—</strong></div>
+        <div class="stat-chip">Published: <strong id="stat-pub">—</strong></div>
+        <div class="stat-chip">Drafts: <strong id="stat-draft">—</strong></div>
+      </div>
+      <div class="list-search">
+        <input type="text" id="list-search-input" placeholder="Search articles…" oninput="filterList(this.value)"/>
+      </div>
+      <div class="article-list" id="article-list">
+        <div class="list-empty">Loading articles…</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Editor -->
+    <div class="editor-panel" id="editor-panel">
+      <div class="editor-placeholder" id="editor-placeholder">
+        <div class="editor-placeholder-icon">✏️</div>
+        <div class="editor-placeholder-text">Select an article to edit, or create a new one</div>
+      </div>
+
+      <div class="editor-form" id="editor-form" style="display:none;">
+        <div class="editor-form-header">
+          <div class="editor-form-title" id="form-heading">New Article</div>
+          <div class="editor-actions">
+            <button class="btn-preview" onclick="previewArticle()">Preview →</button>
+            <button class="btn-delete" id="btn-delete" onclick="deleteArticle()" style="display:none;">Delete</button>
+            <button class="btn-save" onclick="saveArticle()">Save Article</button>
+          </div>
+        </div>
+
+        <!-- Status Toggle -->
+        <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.75rem;flex-wrap:wrap;">
+          <div class="toggle-row">
+            <label class="toggle-switch"><input type="checkbox" id="f-published" checked/><span class="toggle-slider"></span></label>
+            <span class="toggle-label">Published</span>
+          </div>
+          <div class="form-group" style="margin:0;display:flex;align-items:center;gap:.6rem;">
+            <label class="eform-label" style="margin:0;white-space:nowrap;" for="f-date">Publish Date</label>
+            <input type="date" class="eform-input" id="f-date" style="width:160px;padding:7px 10px;"/>
+          </div>
+          <div class="form-group" style="margin:0;display:flex;align-items:center;gap:.6rem;">
+            <label class="eform-label" style="margin:0;" for="f-tag">Tag</label>
+            <select class="eform-input" id="f-tag" style="width:130px;">
+              <option value="Official">Official</option>
+              <option value="Platform">Platform</option>
+              <option value="Crypto">Crypto</option>
+              <option value="News" selected>News</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Core Fields -->
+        <div class="editor-grid full form-group">
+          <label class="eform-label" for="f-title">Title <span>*</span></label>
+          <input type="text" class="eform-input" id="f-title" placeholder="Article headline…" oninput="onTitleInput(this.value)"/>
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;">
+          <label class="eform-label" for="f-slug">URL Slug <span>*</span> <small style="text-transform:none;letter-spacing:0;color:var(--text3)">(used in URL: /news/article.html?slug=<strong id="slug-preview">your-slug</strong>)</small></label>
+          <div class="slug-row">
+            <input type="text" class="eform-input" id="f-slug" placeholder="your-article-slug" oninput="document.getElementById('slug-preview').textContent=this.value||'your-slug'"/>
+            <button class="btn-gen-slug" onclick="generateSlug()">Auto Generate</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;">
+          <label class="eform-label" for="f-excerpt">Excerpt / Summary <span style="color:var(--text3);font-size:9px;text-transform:none;letter-spacing:0;">(shown on news listing)</span> <span class="char-count" id="cc-excerpt">0/220</span></label>
+          <textarea class="eform-input" id="f-excerpt" rows="3" placeholder="A short summary of the article (1–3 sentences)…" oninput="countChars('f-excerpt','cc-excerpt',220)"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;">
+          <label class="eform-label" for="f-cover">Cover Image URL <span style="color:var(--text3);font-size:9px;text-transform:none;letter-spacing:0;">(Cloudinary or any direct image link)</span></label>
+          <input type="url" class="eform-input" id="f-cover" placeholder="https://res.cloudinary.com/…/image.jpg"/>
+        </div>
+
+        <!-- Content -->
+        <hr class="section-divider"/>
+        <div class="section-heading">Article Content</div>
+        <div class="form-group">
+          <label class="eform-label" for="f-content">Full Article (HTML) <span>*</span> <span class="char-count" id="cc-content">0 chars</span></label>
+          <div class="content-toolbar">
+            <button class="toolbar-btn" onclick="insertTag('p')">¶ Para</button>
+            <button class="toolbar-btn" onclick="insertTag('h2')">H2</button>
+            <button class="toolbar-btn" onclick="insertTag('h3')">H3</button>
+            <button class="toolbar-btn" onclick="insertTag('strong')"><b>Bold</b></button>
+            <button class="toolbar-btn" onclick="insertTag('em')"><i>Italic</i></button>
+            <button class="toolbar-btn" onclick="insertTag('blockquote')">"Quote"</button>
+            <button class="toolbar-btn" onclick="insertUL()">• List</button>
+            <button class="toolbar-btn" onclick="insertTag('li')">• Item</button>
+          </div>
+          <textarea class="eform-input content-area" id="f-content" placeholder="&lt;p&gt;Write your article content here using HTML tags…&lt;/p&gt;&#10;&lt;h2&gt;Section Title&lt;/h2&gt;&#10;&lt;p&gt;More content…&lt;/p&gt;" oninput="countChars('f-content','cc-content',0)"></textarea>
+          <div class="content-hint">Write content using HTML. Use &lt;p&gt; for paragraphs, &lt;h2&gt; for headings, &lt;strong&gt; for bold, &lt;blockquote&gt; for quotes, &lt;ul&gt;&lt;li&gt; for lists. Click toolbar buttons to insert tags.</div>
+        </div>
+
+        <!-- SEO -->
+        <hr class="section-divider"/>
+        <div class="section-heading">SEO Settings</div>
+        <div class="form-group">
+          <label class="eform-label" for="f-meta-title">SEO Title <span class="char-count" id="cc-meta-title">0/60</span></label>
+          <input type="text" class="eform-input" id="f-meta-title" placeholder="Leave blank to use Article Title" oninput="countChars('f-meta-title','cc-meta-title',60)"/>
+        </div>
+        <div class="form-group" style="margin-top:1rem;">
+          <label class="eform-label" for="f-meta-desc">SEO Description <span class="char-count" id="cc-meta-desc">0/160</span></label>
+          <textarea class="eform-input" id="f-meta-desc" rows="3" placeholder="Leave blank to use Excerpt…" oninput="countChars('f-meta-desc','cc-meta-desc',160)"></textarea>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <button class="btn-save" style="min-width:160px;" onclick="saveArticle()">Save Article</button>
+        </div>
+
+        <!-- Hidden ID -->
+        <input type="hidden" id="f-id"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast"></div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   SUPABASE CONFIG
+   Same credentials as index.html, news.html, article.html
+════════════════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://egyvrdobllhwqwrfpkrg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ZFSmkYuW7lsUYoHpeo4_Iw_9s68t1Fd';
+
+/* Admin password — CHANGE THIS before going live */
+const ADMIN_PASSWORD = 'gta6admin2026';
+const SESSION_KEY    = 'gta6_admin_auth';
+
+let db = null;
+let articles = [];
+let editingId = null;
+
+/* ══ Login ══ */
+function doLogin(e) {
+  e.preventDefault();
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === ADMIN_PASSWORD) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    showAdmin();
+  } else {
+    document.getElementById('login-error').classList.add('show');
+    document.getElementById('admin-pass').value = '';
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+}
+
+function showAdmin() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-screen').style.display = 'flex';
+  document.getElementById('admin-screen').style.flexDirection = 'column';
+  initDB();
+}
+
+/* ══ Supabase init ══ */
+function initDB() {
+  if (SUPABASE_URL.includes('YOUR_') || SUPABASE_KEY.includes('YOUR_')) {
+    toast('Supabase not configured — using demo mode', 'info');
+    loadDemoArticles();
+    return;
+  }
+  try {
+    db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    loadArticles();
+  } catch(e) {
+    toast('Supabase init failed: ' + e.message, 'error');
+    loadDemoArticles();
+  }
+}
+
+/* ══ Load articles ══ */
+async function loadArticles() {
+  try {
+    const { data, error } = await db.from('articles')
+      .select('id, slug, title, tag, is_published, published_date, excerpt')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    articles = data || [];
+    renderList(articles);
+    updateStats(articles);
+  } catch(e) {
+    toast('Failed to load articles: ' + e.message, 'error');
+    loadDemoArticles();
+  }
+}
+
+function loadDemoArticles() {
+  articles = [
+    { id:1, slug:'gta-6-release-date-november-2026', title:'GTA 6 Officially Confirmed for November 19, 2026', tag:'Official', is_published:true, published_date:'2026-05-01', excerpt:'Demo mode — Supabase not connected.' },
+    { id:2, slug:'gta-6-pc-version-2027', title:'PC Version Reportedly Coming in 2027', tag:'Platform', is_published:true, published_date:'2026-04-10', excerpt:'Demo mode — Supabase not connected.' },
+    { id:3, slug:'gta-6-pre-booking-with-crypto', title:'Why GTA 6 Pre-Booking With Crypto Makes Sense', tag:'Crypto', is_published:true, published_date:'2026-03-15', excerpt:'Demo mode — Supabase not connected.' }
+  ];
+  renderList(articles);
+  updateStats(articles);
+}
+
+/* ══ Render list ══ */
+function renderList(list) {
+  const container = document.getElementById('article-list');
+  if (!list.length) { container.innerHTML = '<div class="list-empty">No articles yet. Create your first one!</div>'; return; }
+  container.innerHTML = list.map(a => `
+    <div class="article-list-item ${editingId === a.id ? 'active' : ''}" onclick="editArticle(${a.id})" id="list-item-${a.id}">
+      <div class="ali-tag">${a.tag || 'News'}</div>
+      <div class="ali-title">${a.title}</div>
+      <div class="ali-meta">
+        <span class="ali-date">${a.published_date || '—'}</span>
+        <span class="ali-status ${a.is_published ? 'published' : 'draft'}">${a.is_published ? '● Live' : '○ Draft'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateStats(list) {
+  document.getElementById('stat-total').textContent = list.length;
+  document.getElementById('stat-pub').textContent = list.filter(a => a.is_published).length;
+  document.getElementById('stat-draft').textContent = list.filter(a => !a.is_published).length;
+}
+
+function filterList(q) {
+  const filtered = articles.filter(a => a.title.toLowerCase().includes(q.toLowerCase()) || (a.tag||'').toLowerCase().includes(q.toLowerCase()));
+  renderList(filtered);
+}
+
+/* ══ New Article ══ */
+function newArticle() {
+  editingId = null;
+  clearForm();
+  document.getElementById('form-heading').textContent = 'New Article';
+  document.getElementById('btn-delete').style.display = 'none';
+  document.getElementById('f-date').value = new Date().toISOString().split('T')[0];
+  showForm();
+  document.querySelectorAll('.article-list-item').forEach(el => el.classList.remove('active'));
+}
+
+/* ══ Edit Article ══ */
+async function editArticle(id) {
+  editingId = id;
+  document.querySelectorAll('.article-list-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('list-item-' + id);
+  if (el) el.classList.add('active');
+
+  let article = null;
+  if (db) {
+    try {
+      const { data, error } = await db.from('articles').select('*').eq('id', id).single();
+      if (!error && data) article = data;
+    } catch(e) {}
+  } else {
+    article = articles.find(a => a.id === id) || null;
+  }
+
+  if (!article) { toast('Could not load article', 'error'); return; }
+
+  populateForm(article);
+  document.getElementById('form-heading').textContent = 'Edit Article';
+  document.getElementById('btn-delete').style.display = 'block';
+  showForm();
+}
+
+function populateForm(a) {
+  document.getElementById('f-id').value          = a.id || '';
+  document.getElementById('f-title').value        = a.title || '';
+  document.getElementById('f-slug').value         = a.slug || '';
+  document.getElementById('f-excerpt').value      = a.excerpt || '';
+  document.getElementById('f-cover').value        = a.cover_image_url || '';
+  document.getElementById('f-content').value      = a.content || '';
+  document.getElementById('f-meta-title').value   = a.meta_title || '';
+  document.getElementById('f-meta-desc').value    = a.meta_description || '';
+  document.getElementById('f-published').checked  = a.is_published !== false;
+  document.getElementById('f-tag').value          = a.tag || 'News';
+  document.getElementById('f-date').value         = a.published_date || new Date().toISOString().split('T')[0];
+  document.getElementById('slug-preview').textContent = a.slug || 'your-slug';
+  ['cc-excerpt','cc-meta-title','cc-meta-desc'].forEach(id => {
+    const fid = id.replace('cc-', 'f-').replace('-', '-');
+  });
+  countChars('f-excerpt','cc-excerpt',220);
+  countChars('f-meta-title','cc-meta-title',60);
+  countChars('f-meta-desc','cc-meta-desc',160);
+  countChars('f-content','cc-content',0);
+}
+
+function clearForm() {
+  ['f-id','f-title','f-slug','f-excerpt','f-cover','f-content','f-meta-title','f-meta-desc'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-published').checked = true;
+  document.getElementById('f-tag').value = 'News';
+  document.getElementById('slug-preview').textContent = 'your-slug';
+  ['cc-excerpt','cc-meta-title','cc-meta-desc'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '0/' + (id === 'cc-excerpt' ? '220' : id === 'cc-meta-title' ? '60' : '160');
+  });
+  document.getElementById('cc-content').textContent = '0 chars';
+}
+
+function showForm() {
+  document.getElementById('editor-placeholder').style.display = 'none';
+  document.getElementById('editor-form').style.display = 'block';
+  document.getElementById('editor-panel').scrollTop = 0;
+}
+
+/* ══ Save ══ */
+async function saveArticle() {
+  const title   = document.getElementById('f-title').value.trim();
+  const slug    = document.getElementById('f-slug').value.trim();
+  const content = document.getElementById('f-content').value.trim();
+
+  if (!title)   { toast('Title is required', 'error'); document.getElementById('f-title').focus(); return; }
+  if (!slug)    { toast('Slug is required', 'error');  document.getElementById('f-slug').focus(); return; }
+  if (!content) { toast('Content is required', 'error'); document.getElementById('f-content').focus(); return; }
+
+  const payload = {
+    title,
+    slug,
+    excerpt:          document.getElementById('f-excerpt').value.trim() || null,
+    cover_image_url:  document.getElementById('f-cover').value.trim() || null,
+    content,
+    tag:              document.getElementById('f-tag').value,
+    meta_title:       document.getElementById('f-meta-title').value.trim() || null,
+    meta_description: document.getElementById('f-meta-desc').value.trim() || null,
+    is_published:     document.getElementById('f-published').checked,
+    published_date:   document.getElementById('f-date').value || null
+  };
+
+  if (!db) {
+    toast('Demo mode — Supabase not connected. Article not actually saved.', 'info');
+    return;
+  }
+
+  try {
+    let error;
+    if (editingId) {
+      const res = await db.from('articles').update(payload).eq('id', editingId);
+      error = res.error;
+    } else {
+      const res = await db.from('articles').insert(payload).select().single();
+      error = res.error;
+      if (!error && res.data) { editingId = res.data.id; document.getElementById('f-id').value = res.data.id; }
+    }
+    if (error) throw error;
+    toast('Article saved successfully ✓', 'success');
+    document.getElementById('form-heading').textContent = 'Edit Article';
+    document.getElementById('btn-delete').style.display = 'block';
+    loadArticles();
+  } catch(e) {
+    toast('Save failed: ' + e.message, 'error');
+  }
+}
+
+/* ══ Delete ══ */
+async function deleteArticle() {
+  const title = document.getElementById('f-title').value || 'this article';
+  if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+  if (!db) { toast('Demo mode — not connected', 'info'); return; }
+  try {
+    const { error } = await db.from('articles').delete().eq('id', editingId);
+    if (error) throw error;
+    toast('Article deleted', 'success');
+    editingId = null;
+    document.getElementById('editor-placeholder').style.display = 'flex';
+    document.getElementById('editor-form').style.display = 'none';
+    loadArticles();
+  } catch(e) {
+    toast('Delete failed: ' + e.message, 'error');
+  }
+}
+
+/* ══ Preview ══ */
+function previewArticle() {
+  const slug = document.getElementById('f-slug').value.trim();
+  if (!slug) { toast('Enter a slug first', 'info'); return; }
+  window.open('/article.html?slug=' + encodeURIComponent(slug), '_blank');
+}
+
+/* ══ Slug generator ══ */
+function generateSlug() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { toast('Enter a title first', 'info'); return; }
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('f-slug').value = slug;
+  document.getElementById('slug-preview').textContent = slug;
+}
+
+function onTitleInput(val) {
+  /* Don't auto-generate slug when editing existing article */
+  if (editingId) return;
+  const slug = val.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('f-slug').value = slug;
+  document.getElementById('slug-preview').textContent = slug || 'your-slug';
+}
+
+/* ══ Char count ══ */
+function countChars(inputId, countId, max) {
+  const val = document.getElementById(inputId).value;
+  const el  = document.getElementById(countId);
+  if (!el) return;
+  const len = val.length;
+  el.textContent = max ? len + '/' + max : len + ' chars';
+  el.style.color = (max && len > max) ? '#E57C71' : 'var(--text3)';
+}
+
+/* ══ Toolbar insert ══ */
+function insertTag(tag) {
+  const ta = document.getElementById('f-content');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end) || 'Text here';
+  const ins = `<${tag}>${sel}</${tag}>`;
+  ta.value = ta.value.substring(0, start) + ins + ta.value.substring(end);
+  ta.selectionStart = ta.selectionEnd = start + ins.length;
+  ta.focus();
+  countChars('f-content','cc-content',0);
+}
+function insertUL() {
+  const ta = document.getElementById('f-content');
+  const pos = ta.selectionEnd;
+  const ins = '\n<ul>\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>\n';
+  ta.value = ta.value.substring(0, pos) + ins + ta.value.substring(pos);
+  ta.focus();
+}
+
+/* ══ Toast ══ */
+function toast(msg, type='info') {
+  const container = document.getElementById('toast');
+  const el = document.createElement('div');
+  el.className = 'toast-item ' + type;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity .3s ease'; setTimeout(()=>el.remove(), 300); }, 3200);
+}
+
+/* ══ Init ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    showAdmin();
+  }
+});
+</script>
+</body>
+</html>
+

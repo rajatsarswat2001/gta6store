@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GTA 6 Pre-Booking Platform — International Project Plan (USA, UK, Canada)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #C0392B;
+    --green: #27AE60;
+    --blue: #2980B9;
+    --bg: #0A0A0B;
+    --bg2: #111114;
+    --bg3: #181820;
+    --surface: #1E1E28;
+    --surface2: #252530;
+    --border: rgba(255,255,255,0.07);
+    --border-gold: rgba(201,168,76,0.25);
+    --text: #F0EDE4;
+    --text2: #A09A8C;
+    --text3: #55504A;
+    --font-title: 'Bebas Neue', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 3rem 4rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 100% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .header-title {
+    font-family: var(--font-title);
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: 3px;
+    line-height: 0.95;
+    margin-bottom: 1rem;
+  }
+  .header-title .dim { color: var(--text2); }
+  .header-title .accent { color: var(--gold); }
+  .header-sub {
+    font-family: var(--font-cond);
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 2rem;
+  }
+  .header-meta {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .meta-item {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .meta-item span { color: var(--text2); }
+
+  /* LAYOUT */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 4rem 6rem;
+  }
+
+  /* SECTION */
+  .section { margin-bottom: 4rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    background: var(--gold-dim);
+    padding: 3px 10px;
+    letter-spacing: 2px;
+  }
+  .section-title {
+    font-family: var(--font-title);
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .section-title .acc { color: var(--gold); }
+
+  /* TABLE */
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 0.5rem;
+  }
+  .plan-table th {
+    font-family: var(--font-cond);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    text-align: left;
+    padding: 0.6rem 1rem;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 2px;
+  }
+  .badge-blue { background: rgba(41,128,185,0.2); color: #3498DB; }
+  .badge-gold { background: rgba(201,168,76,0.2); color: var(--gold); }
+
+  .info-box {
+    background: var(--surface);
+    border-left: 4px solid var(--blue);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .info-box strong { color: var(--blue); }
+
+  .note-box {
+    background: rgba(39,174,96,0.08);
+    border: 1px solid rgba(39,174,96,0.3);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 2px;
+  }
+  .note-box p { margin-bottom: 0.5rem; }
+  .note-box p:last-child { margin-bottom: 0; }
+
+  .rule-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .rule-box-title {
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 3rem 0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding: 2rem 0; }
+  .tl-item {
+    display: flex; gap: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .tl-left {
+    flex-shrink: 0; width: 60px;
+    display: flex; flex-direction: column;
+    align-items: center;
+  }
+  .tl-dot {
+    width: 16px; height: 16px;
+    background: var(--gold);
+    border: 3px solid var(--bg);
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+  .tl-line {
+    width: 2px; height: 120px;
+    background: var(--border-gold);
+  }
+  .tl-right {
+    flex: 1; padding-top: 2px;
+  }
+  .tl-phase {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .tl-title {
+    font-family: var(--font-title);
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .tl-desc {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 1rem;
+  }
+  .tl-tasks {
+    font-size: 13px;
+    color: var(--text3);
+  }
+  .tl-task {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .tl-task::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .f-left, .f-right { display: flex; gap: 1rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .page { padding: 2rem; }
+    .plan-table { font-size: 12px; }
+    .plan-table th, .plan-table td { padding: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">INTERNATIONAL LAUNCH</div>
+  <div class="header-title">GTA 6 <span class="accent">Pre-Booking</span> Platform<br><span class="dim">USA • UK • Canada</span></div>
+  <div class="header-sub">Next-Gen Gaming Distribution System</div>
+  <div class="header-meta">
+    <div class="meta-item">Budget: <span>$200 - $500</span></div>
+    <div class="meta-item">Timeline: <span>8 Weeks</span></div>
+    <div class="meta-item">Launch: <span>November 19, 2026</span></div>
+    <div class="meta-item">Version: <span>v2.0 — International</span></div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Project <span class="acc">Overview</span></div>
+    </div>
+    <p>Build a high-performance pre-booking platform for GTA 6 targeting USA, UK, and Canada. This is a complete redesign from the India-focused version, featuring:</p>
+    <ul style="margin: 1.5rem 0 0 2rem; line-height: 2;">
+      <li><strong>USD Pricing:</strong> All prices in USD (no regional currency conversion)</li>
+      <li><strong>International Domain:</strong> Professional domain (not GTA6Store.in) — to be decided by client</li>
+      <li><strong>Global Payment Options:</strong> Credit/Debit cards, PayPal, and crypto (Bitcoin, Ethereum)</li>
+      <li><strong>USA/UK/Canada Geo-Targeting:</strong> SEO optimized for North American and UK search intent</li>
+      <li><strong>Scalable Architecture:</strong> Vercel serverless functions, Supabase database, Stripe/Crypto payments</li>
+      <li><strong>Launch Date:</strong> November 19, 2026 (PS5 & Xbox), Late 2026 (PC)</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 2: TARGET KEYWORDS FOR SEO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Target <span class="acc">Keywords (USA/UK/Canada)</span></div>
+    </div>
+    <p>These are the primary search terms your website should rank for:</p>
+
+    <div style="margin-top: 2rem;">
+      <h4 style="color: var(--gold); margin-bottom: 1rem; font-size: 16px;">🔍 Primary High-Intent Keywords</h4>
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Search Volume</th>
+            <th>Difficulty</th>
+            <th>Target Market</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GTA 6 pre-order USA</td>
+            <td>12,000/mo</td>
+            <td>High</td>
+            <td>USA</td>
+          </tr>
+          <tr>
+            <td>buy GTA 6 online</td>
+            <td>8,500/mo</td>
+            <td>High</td>
+            <td>USA, UK, Canada</td>
+          </tr>
+          <tr>
+            <td>GTA 6 pre-book</td>
+            <td>6,200/mo</td>
+            <td>Medium</td>
+            <td>USA, Canada</td>
+          </tr>
+          <tr>
+            <td>GTA 6 PS5 pre-order</td>
+            <td>7,800/mo</td>
+            <td>High</td>
+            <td>USA</td>
+          </tr>
+          <tr>
+            <td>GTA 6 Xbox pre-order</td>
+            <td>5,400/mo</td>
+            <td>High</td>
+            <td>USA, UK</td>
+          </tr>
+          <tr>
+            <td>GTA 6 PC pre-order</td>
+            <td>4,100/mo</td>
+            <td>Medium</td>
+            <td>USA, Canada</td>
+          </tr>
+          <tr>
+            <td>Grand Theft Auto 6 price USD</td>
+            <td>3,600/mo</td>
+            <td>Medium</td>
+            <td>USA</td>
+          </tr>
+          <tr>
+            <td>GTA VI release date 2026</td>
+            <td>2,900/mo</td>
+            <td>Low</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td>pre-order GTA 6 UK</td>
+            <td>2,200/mo</td>
+            <td>Medium</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <td>GTA 6 Canada pre-book</td>
+            <td>1,800/mo</td>
+            <td>Low</td>
+            <td>Canada</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <h4 style="color: var(--gold); margin-bottom: 1rem; font-size: 16px;">📊 Long-Tail Keywords (Lower Competition)</h4>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div style="background: var(--surface); padding: 1rem; border-left: 3px solid var(--gold);">
+          <strong style="color: var(--gold);">USA Focus</strong>
+          <ul style="margin-top: 0.5rem; font-size: 13px; line-height: 1.8; list-style-position: inside;">
+            <li>GTA 6 pre-order price US</li>
+            <li>best place to pre-order GTA 6</li>
+            <li>GTA 6 early access USA</li>
+            <li>how to pre-book GTA 6 America</li>
+            <li>GTA 6 deluxe edition price USA</li>
+          </ul>
+        </div>
+        <div style="background: var(--surface); padding: 1rem; border-left: 3px solid var(--gold);">
+          <strong style="color: var(--gold);">UK Focus</strong>
+          <ul style="margin-top: 0.5rem; font-size: 13px; line-height: 1.8; list-style-position: inside;">
+            <li>GTA 6 pre-order UK price</li>
+            <li>buy GTA 6 online UK</li>
+            <li>GTA 6 PS5 UK pre-book</li>
+            <li>GTA 6 early access UK</li>
+            <li>Grand Theft Auto 6 GB release</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top: 2rem;">
+      <strong style="color: var(--blue);">⚡ Strategy:</strong> Focus on branded + transactional keywords (pre-order, buy, price) in Phase 7 (SEO). Use geo-targeted content to rank for regional searches. Create news articles targeting these keywords to build topical authority.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 3: DOMAIN STRATEGY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Domain <span class="acc">Strategy</span></div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-box-title">📌 Domain Decision — Your Choice</div>
+      <p>You mentioned the domain is not decided yet. Here are strategic options:</p>
+      <table class="plan-table" style="margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th>Domain Option</th>
+            <th>Pros</th>
+            <th>Cons</th>
+            <th>Est. Cost/Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>gta6.shop</strong></td>
+            <td>Short, brandable, .shop extension popular for e-commerce</td>
+            <td>Very competitive, may be taken</td>
+            <td>$50-150</td>
+          </tr>
+          <tr>
+            <td><strong>gtavistore.com</strong></td>
+            <td>Clear, keyword-rich, memorable</td>
+            <td>Longer name, may be taken</td>
+            <td>$60-200</td>
+          </tr>
+          <tr>
+            <td><strong>preorder.gta6.store</strong></td>
+            <td>Descriptive, shows platform purpose</td>
+            <td>Very long URL</td>
+            <td>$80-150</td>
+          </tr>
+          <tr>
+            <td><strong>gamevault.io</strong> or <strong>vault.games</strong></td>
+            <td>Modern, brandable, applicable to future games</td>
+            <td>Not GTA-specific, less SEO value</td>
+            <td>$100-200</td>
+          </tr>
+          <tr>
+            <td><strong>instantgta.com</strong></td>
+            <td>Emphasizes speed/instant booking</td>
+            <td>Competitive, brand-new domain may have lower trust</td>
+            <td>$40-100</td>
+          </tr>
+          <tr>
+            <td><strong>gta-reserve.com</strong></td>
+            <td>Clear action-oriented, keyword-rich</td>
+            <td>Hyphenated (slightly lower SEO)</td>
+            <td>$30-80</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note-box">
+      <p><strong>Recommendation:</strong> Choose a <strong>short, keyword-rich domain</strong> like <strong>gtavistore.com</strong> or <strong>gta6.shop</strong>. These rank better for SEO and are easier to market. Avoid hyphens if possible.</p>
+      <p>Once you decide, we'll update all URLs, meta tags, and SEO strategy accordingly.</p>
+    </div>
+
+    <div class="info-box">
+      <strong>Where to Buy Domain:</strong> Hostinger, Namecheap, GoDaddy, or Google Domains. Register for 2-3 years to signal credibility. Enable auto-renewal.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 4: TECH STACK -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Technology <span class="acc">Stack</span></div>
+    </div>
+
+    <table class="plan-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hosting</strong></td>
+          <td>Vercel</td>
+          <td>Deploy website + serverless API functions</td>
+          <td>$0-50/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Database</strong></td>
+          <td>Supabase (PostgreSQL)</td>
+          <td>Store bookings, customer data, transactions</td>
+          <td>$0-50/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Payment Gateway</strong></td>
+          <td>Stripe (Primary) + NOWPayments (Crypto)</td>
+          <td>Process credit cards, debit cards, crypto</td>
+          <td>2-3% transaction fee</td>
+        </tr>
+        <tr>
+          <td><strong>Email Service</strong></td>
+          <td>Brevo (formerly Sendinblue)</td>
+          <td>Send booking confirmations, payment receipts</td>
+          <td>$0-50/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Images</strong></td>
+          <td>Cloudinary</td>
+          <td>Host and optimize hero images, edition artwork</td>
+          <td>$0-100/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Version Control</strong></td>
+          <td>GitHub</td>
+          <td>Store code, manage versions</td>
+          <td>Free</td>
+        </tr>
+        <tr>
+          <td><strong>Domain</strong></td>
+          <td>Hostinger / Namecheap</td>
+          <td>Website URL</td>
+          <td>$30-100/year</td>
+        </tr>
+        <tr>
+          <td><strong>SSL Certificate</strong></td>
+          <td>Let's Encrypt (via Vercel)</td>
+          <td>HTTPS / Secure site</td>
+          <td>Free</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box" style="margin-top: 1.5rem;">
+      <strong style="color: var(--blue);">💰 Total Monthly Cost:</strong> $100-250/month (after launch). The free tiers cover 90% of your needs during Phase 1-7. Only pay for upgrades when volume increases.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 5: PRICING STRUCTURE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Pricing <span class="acc">Structure (USD)</span></div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+      <!-- Standard -->
+      <div style="background: var(--surface); border: 1px solid var(--border); padding: 1.5rem;">
+        <h4 style="color: var(--gold); margin-bottom: 1rem;">Standard Edition</h4>
+        <div style="font-size: 24px; font-weight: bold; color: var(--text); margin-bottom: 0.5rem;">$69.99 USD</div>
+        <div style="font-size: 12px; color: var(--text2); margin-bottom: 1rem;">Full Game</div>
+        <div style="font-size: 13px; color: var(--text2);">
+          <strong>Advance:</strong> $20 USD (29% of full price)<br>
+          <strong>Remaining:</strong> $49.99 USD on launch
+        </div>
+      </div>
+
+      <!-- Deluxe -->
+      <div style="background: var(--surface); border: 2px solid var(--gold); padding: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h4 style="color: var(--gold); margin: 0;">Deluxe Edition</h4>
+          <span style="background: var(--gold); color: #000; padding: 2px 8px; font-size: 10px; font-weight: 700;">POPULAR</span>
+        </div>
+        <div style="font-size: 24px; font-weight: bold; color: var(--text); margin-bottom: 0.5rem;">$99.99 USD</div>
+        <div style="font-size: 12px; color: var(--text2); margin-bottom: 1rem;">Game + Extras</div>
+        <div style="font-size: 13px; color: var(--text2);">
+          <strong>Advance:</strong> $35 USD (35% of full price)<br>
+          <strong>Remaining:</strong> $64.99 USD on launch
+        </div>
+      </div>
+
+      <!-- PC -->
+      <div style="background: var(--surface); border: 1px solid var(--border); padding: 1.5rem;">
+        <h4 style="color: var(--gold); margin-bottom: 1rem;">PC Edition</h4>
+        <div style="font-size: 24px; font-weight: bold; color: var(--text); margin-bottom: 0.5rem;">$69.99 USD</div>
+        <div style="font-size: 12px; color: var(--text2); margin-bottom: 1rem;">PC Only (Late 2026)</div>
+        <div style="font-size: 13px; color: var(--text2);">
+          <strong>Advance:</strong> $25 USD (36% of full price)<br>
+          <strong>Remaining:</strong> $44.99 USD on launch
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <p><strong>Revenue Model:</strong></p>
+      <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+        <li><strong>Markup:</strong> 8-12% profit per booking (buyer pays full retail price)</li>
+        <li><strong>Transaction Fees:</strong> 2-3% via Stripe (covered by markup)</li>
+        <li><strong>Example:</strong> 500 Deluxe bookings × $35 advance = $17,500 collected upfront</li>
+        <li><strong>Risk:</strong> Hold crypto in secure wallet. If GTA 6 delayed, offer refunds or date changes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 6: PAYMENT METHODS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Payment <span class="acc">Methods (International)</span></div>
+    </div>
+
+    <table class="plan-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Provider</th>
+          <th>Supported Regions</th>
+          <th>Fee</th>
+          <th>Setup Difficulty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Debit Card</strong></td>
+          <td>Stripe</td>
+          <td>USA, UK, Canada</td>
+          <td>2.2% + $0.30</td>
+          <td>Easy</td>
+        </tr>
+        <tr>
+          <td><strong>Credit Card</strong></td>
+          <td>Stripe</td>
+          <td>USA, UK, Canada</td>
+          <td>2.2% + $0.30</td>
+          <td>Easy</td>
+        </tr>
+        <tr>
+          <td><strong>PayPal</strong></td>
+          <td>Stripe or PayPal</td>
+          <td>USA, UK, Canada</td>
+          <td>3.5% + $0.30</td>
+          <td>Easy</td>
+        </tr>
+        <tr>
+          <td><strong>Apple Pay</strong></td>
+          <td>Stripe</td>
+          <td>USA, UK, Canada</td>
+          <td>2.2% + $0.30</td>
+          <td>Easy</td>
+        </tr>
+        <tr>
+          <td><strong>Google Pay</strong></td>
+          <td>Stripe</td>
+          <td>USA, UK, Canada</td>
+          <td>2.2% + $0.30</td>
+          <td>Easy</td>
+        </tr>
+        <tr>
+          <td><strong>Bitcoin</strong></td>
+          <td>NOWPayments or Coinbase</td>
+          <td>Global</td>
+          <td>1% + network fees</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Ethereum</strong></td>
+          <td>NOWPayments or Coinbase</td>
+          <td>Global</td>
+          <td>1% + network fees</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>USDC (Stablecoin)</strong></td>
+          <td>NOWPayments</td>
+          <td>Global</td>
+          <td>1%</td>
+          <td>Medium</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box" style="margin-top: 1.5rem;">
+      <strong style="color: var(--blue);">✅ Recommended Setup:</strong><br>
+      1. <strong>Stripe (Primary)</strong> — handles cards, PayPal, Apple Pay, Google Pay. Easy, trusted, PCI-compliant.<br>
+      2. <strong>NOWPayments (Crypto)</strong> — handles BTC, ETH, USDC. Appeals to crypto-savvy gamers.<br>
+      Why? Cards cover 95% of customers. Crypto adds optionality and reduces fraud risk.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 7: 8-PHASE TIMELINE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Development <span class="acc">Timeline (8 Phases)</span></div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 1</div>
+          <div class="tl-title">Foundation — Core HTML/CSS/JS</div>
+          <div class="tl-desc">Build the homepage. Wire all buttons, forms, modals. No backend yet.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Create index.html with hero, editions grid, booking form, FAQ</div>
+            <div class="tl-task">Add countdown timer to launch date (Nov 19, 2026)</div>
+            <div class="tl-task">Add platform selector (PS5, Xbox, PC)</div>
+            <div class="tl-task">Add edition dropdown (Standard, Deluxe, PC)</div>
+            <div class="tl-task">Build booking summary sidebar (shows selected options)</div>
+            <div class="tl-task">Add success modal for booking submission</div>
+            <div class="tl-task">Add FAQ toggle functionality</div>
+            <div class="tl-task">Style mobile-responsive design (80% mobile traffic expected)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 2</div>
+          <div class="tl-title">Images — Add All Visuals</div>
+          <div class="tl-desc">Source GTA 6 official artwork, upload to Cloudinary, wire into HTML.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Download GTA 6 hero background (from Rockstar official media)</div>
+            <div class="tl-task">Download edition artwork (Standard, Deluxe, PC editions)</div>
+            <div class="tl-task">Download platform logos (PS5, Xbox Series X|S, PC)</div>
+            <div class="tl-task">Download crypto logos (BTC, ETH, USDC)</div>
+            <div class="tl-task">Set up free Cloudinary account (10GB/month free)</div>
+            <div class="tl-task">Upload all images to Cloudinary with optimization</div>
+            <div class="tl-task">Update all img src URLs in index.html to point to Cloudinary</div>
+            <div class="tl-task">Test image loading speed (target &lt; 2s page load)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 3</div>
+          <div class="tl-title">Backend — Database + Serverless Functions</div>
+          <div class="tl-desc">Set up Supabase DB and Vercel API functions to save bookings & handle payments.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Create Supabase project (free tier)</div>
+            <div class="tl-task">Create 'bookings' table (id, name, email, phone, country, edition, platform, payment_method, booking_date)</div>
+            <div class="tl-task">Create 'subscribers' table (id, email, subscribed_date)</div>
+            <div class="tl-task">Create 'transactions' table (id, booking_id, amount_usd, payment_status, crypto_tx_hash)</div>
+            <div class="tl-task">Write api/booking.js — receives form data, saves to Supabase, returns booking_id</div>
+            <div class="tl-task">Write api/payment.js — creates Stripe invoice or NOWPayments request</div>
+            <div class="tl-task">Write api/webhook.js — receives payment confirmation, updates transaction status</div>
+            <div class="tl-task">Write api/track.js — fetch booking by ID and email</div>
+            <div class="tl-task">Write api/subscribe.js — save subscriber email</div>
+            <div class="tl-task">Test all API endpoints locally</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 4</div>
+          <div class="tl-title">Payments — Integrate Payment Gateways</div>
+          <div class="tl-desc">Wire Stripe and NOWPayments. End-to-end payment flow live.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Create Stripe account (free, no upfront fees)</div>
+            <div class="tl-task">Create NOWPayments account (free, crypto support)</div>
+            <div class="tl-task">Get Stripe API keys, add to Vercel environment variables</div>
+            <div class="tl-task">Get NOWPayments API keys, add to Vercel environment variables</div>
+            <div class="tl-task">Update index.html JS — call api/payment.js on booking submit</div>
+            <div class="tl-task">Show payment method selection (Stripe for cards, NOWPayments for crypto)</div>
+            <div class="tl-task">Show payment confirmation with wallet address or Stripe checkout link</div>
+            <div class="tl-task">Test payment flow with test cards (Stripe provides test card numbers)</div>
+            <div class="tl-task">Test crypto payments with small amounts on testnet first</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 5</div>
+          <div class="tl-title">Emails — Automated Notifications</div>
+          <div class="tl-desc">Send booking confirmations and payment receipts via Brevo.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Create Brevo account (free 300 emails/day)</div>
+            <div class="tl-task">Get Brevo API key</div>
+            <div class="tl-task">Design booking confirmation email template (HTML)</div>
+            <div class="tl-task">Design payment received email template</div>
+            <div class="tl-task">Design payment awaiting email (if payment pending)</div>
+            <div class="tl-task">Wire Brevo into api/booking.js — send confirmation on booking submit</div>
+            <div class="tl-task">Wire Brevo into api/webhook.js — send receipt when payment confirmed</div>
+            <div class="tl-task">Test all email triggers (check spam folder)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 6</div>
+          <div class="tl-title">All Missing Pages</div>
+          <div class="tl-desc">Build every remaining page. Link navigation together.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Build track.html — booking lookup by ID + email</div>
+            <div class="tl-task">Build news.html — news article listing page</div>
+            <div class="tl-task">Create 5 SEO-optimized news articles (USA, UK, Canada specific)</div>
+            <div class="tl-task">Build refund-policy.html (100% refund if GTA 6 delayed)</div>
+            <div class="tl-task">Build privacy-policy.html (data collection &amp; usage)</div>
+            <div class="tl-task">Build terms.html (booking T&Cs, payment T&Cs)</div>
+            <div class="tl-task">Build contact.html (support email, FAQ link)</div>
+            <div class="tl-task">Update nav &amp; footer links on all pages</div>
+            <div class="tl-task">Test all internal links</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 7</div>
+          <div class="tl-title">SEO — Get Found on Google</div>
+          <div class="tl-desc">Technical SEO to rank for target keywords (USA/UK/Canada).</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Add proper meta title + description to every page</div>
+            <div class="tl-task">Add Open Graph tags for social sharing (Facebook, Twitter)</div>
+            <div class="tl-task">Create sitemap.xml (list of all pages)</div>
+            <div class="tl-task">Create robots.txt</div>
+            <div class="tl-task">Add schema markup (Product schema for editions, FAQ schema)</div>
+            <div class="tl-task">Optimize all image alt tags (help Google understand images)</div>
+            <div class="tl-task">Set up Google Search Console &amp; submit sitemap</div>
+            <div class="tl-task">Request indexing for all pages</div>
+            <div class="tl-task">Monitor rankings for target keywords in Google Search Console</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot"></div></div>
+        <div class="tl-right">
+          <div class="tl-phase">Phase 8</div>
+          <div class="tl-title">Domain + Final Launch</div>
+          <div class="tl-desc">Buy domain, connect to Vercel, go live.</div>
+          <div class="tl-tasks">
+            <div class="tl-task">Buy domain (your choice: gtavistore.com, gta6.shop, etc.)</div>
+            <div class="tl-task">Point domain DNS to Vercel nameservers</div>
+            <div class="tl-task">Enable HTTPS (free via Let's Encrypt on Vercel)</div>
+            <div class="tl-task">Full end-to-end test — booking to confirmation email</div>
+            <div class="tl-task">Test on all devices (mobile, tablet, desktop)</div>
+            <div class="tl-task">Test all payment methods (card, PayPal, crypto)</div>
+            <div class="tl-task">Submit domain to Google Search Console</div>
+            <div class="tl-task">Submit to Bing Webmaster Tools</div>
+            <div class="tl-task">Post to Reddit (r/GTA, r/GTA6, r/PS5, r/XboxSeries, r/PCGaming)</div>
+            <div class="tl-task">Post on Twitter/X gaming communities</div>
+            <div class="tl-task">Contact gaming blogs for mentions/backlinks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 8: LEGAL RULES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">Important <span class="acc">Legal Rules</span></div>
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-box-title">⚠️ Disclaimer — Always Show This</div>
+      <p><strong style="color: var(--gold);">Every page must include:</strong><br>
+      "GTA6Store is an independent third-party pre-booking service. Not affiliated with Rockstar Games, Take-Two Interactive, Sony, or Microsoft."</p>
+      <p style="margin-top: 0.5rem; font-size: 13px;">This is in your footer. Never remove it. It protects you legally from trademark claims.</p>
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-box-title">⚠️ Payments — Crypto Only (No Cards from Minors)</div>
+      <p>Only accept cards from adults (USA: 18+, UK: 16+, Canada: 18+). Add age verification checkbox on form if needed. Keep crypto payments as an option to reduce friction.</p>
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-box-title">⚠️ Never Claim to Be Official</div>
+      <p>Never use phrases like "Official GTA 6 store" or "Authorized by Rockstar." Always say "third-party" or "independent platform." This is legally safer.</p>
+    </div>
+
+    <div class="rule-box">
+      <div class="rule-box-title">⚠️ Refund Policy — Be Ready to Honor It</div>
+      <p>You promised 100% refunds if GTA 6 is delayed or cancelled. Keep enough crypto/funds in your wallet to honor refunds. <strong>Do not spend advance payments before the game launches on Nov 19, 2026.</strong></p>
+    </div>
+
+    <div class="note-box">
+      <p><strong>GTA 6 Launch Dates (Official):</strong></p>
+      <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+        <li><strong>PS5 &amp; Xbox Series X|S:</strong> November 19, 2026 (confirmed)</li>
+        <li><strong>PC Version:</strong> Likely late 2026, but not officially confirmed — offer as "waitlist/early interest"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION 9: WHO DOES WHAT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div class="section-title">Responsibilities — <span class="acc">Who Does What</span></div>
+    </div>
+
+    <table class="plan-table">
+      <thead><tr><th>Task</th><th>Who</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>All website code (HTML/CSS/JS/API functions)</td><td><span class="badge badge-blue">Claude</span></td><td>Complete from scratch, production-ready</td></tr>
+        <tr><td>Create GitHub account + repo</td><td><span class="badge badge-gold">You</span></td><td>Free at github.com</td></tr>
+        <tr><td>Upload files to GitHub</td><td><span class="badge badge-gold">You</span></td><td>Drag and drop in browser</td></tr>
+        <tr><td>Create Vercel account</td><td><span class="badge badge-gold">You</span></td><td>Sign up with GitHub — free</td></tr>
+        <tr><td>Create Supabase account</td><td><span class="badge badge-gold">You</span></td><td>Free at supabase.com — share API keys with me</td></tr>
+        <tr><td>Create Stripe account</td><td><span class="badge badge-gold">You</span></td><td>Free at stripe.com — no fees until you process payments</td></tr>
+        <tr><td>Create NOWPayments account</td><td><span class="badge badge-gold">You</span></td><td>Free at nowpayments.io</td></tr>
+        <tr><td>Create Brevo account</td><td><span class="badge badge-gold">You</span></td><td>Free at brevo.com</td></tr>
+        <tr><td>Create Cloudinary account</td><td><span class="badge badge-gold">You</span></td><td>Free at cloudinary.com — for image hosting</td></tr>
+        <tr><td>Buy domain</td><td><span class="badge badge-gold">You</span></td><td>$30-100/year (your choice: gtavistore.com, gta6.shop, etc.)</td></tr>
+        <tr><td>Download/source images</td><td><span class="badge badge-gold">You</span></td><td>I'll give exact URLs where to download GTA 6 official artwork</td></tr>
+        <tr><td>Crypto wallet setup</td><td><span class="badge badge-gold">You</span></td><td>Optional — for receiving crypto payments directly</td></tr>
+        <tr><td>Business decisions</td><td><span class="badge badge-gold">You</span></td><td>Pricing, editions, refund handling, customer support</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">GTA 6 <span style="color: var(--gold);">Pre-Booking Platform</span> &nbsp;·&nbsp; <span style="font-size:14px; font-family:var(--font-cond); letter-spacing:2px;">PROJECT PLAN v2.0</span></div>
+  <div class="f-right">International (USA • UK • Canada) &nbsp;·&nbsp; 8 Phases &nbsp;·&nbsp; Launch: Nov 19, 2026</div>
+</footer>
+
+</body>
+</html>

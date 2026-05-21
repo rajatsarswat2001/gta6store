@@ -1,0 +1,546 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!-- SEO meta updated dynamically by JS after fetching article -->
+<title>GTA 6 News â€” GTA6Store</title>
+<meta name="description" content="Read the latest GTA 6 news on GTA6Store."/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="author" content="GTA6Store"/>
+<meta name="theme-color" content="#080809"/>
+<link rel="canonical" href="https://gta6store.co.uk/news/" id="canonical-link"/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://gta6store.co.uk/news/" id="og-url"/>
+<meta property="og:title" content="GTA 6 News â€” GTA6Store" id="og-title"/>
+<meta property="og:description" content="Read the latest GTA 6 news on GTA6Store." id="og-desc"/>
+<meta property="og:image" content="https://gta6store.co.uk/og-image.jpg" id="og-image"/>
+<meta property="og:site_name" content="GTA6Store"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="GTA 6 News â€” GTA6Store" id="tw-title"/>
+<meta name="twitter:description" content="Read the latest GTA 6 news on GTA6Store." id="tw-desc"/>
+<meta name="twitter:image" content="https://gta6store.co.uk/og-image.jpg" id="tw-image"/>
+
+<!-- NewsArticle JSON-LD (filled dynamically) -->
+<script type="application/ld+json" id="article-schema">{}</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/></noscript>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --gold:#C9A84C; --gold-light:#E8C96A; --gold-dim:rgba(201,168,76,.10); --gold-glow:rgba(201,168,76,.22);
+  --red:#C0392B;
+  --bg:#080809; --bg2:#0C0C0F;
+  --surface:#13131A; --surface2:#18181F;
+  --border:rgba(255,255,255,.055); --border2:rgba(201,168,76,.20); --border3:rgba(201,168,76,.45);
+  --text:#F0EDE4; --text2:#9A9489; --text3:#524E48;
+  --font-title:'Bebas Neue','Arial Black',sans-serif;
+  --font-body:'Barlow',Arial,sans-serif;
+  --font-cond:'Barlow Condensed','Arial Narrow',sans-serif;
+  --ease:cubic-bezier(.4,0,.2,1); --dur:.25s;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;height:auto;}
+button{cursor:pointer;font-family:inherit;background:none;border:none;}
+
+@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer-bg{0%{background-position:-600px 0}100%{background-position:600px 0}}
+
+/* PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:2000;transition:width .1s linear;pointer-events:none;}
+
+/* NAV */
+nav{position:fixed;top:2px;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:62px;background:rgba(8,8,9,.88);backdrop-filter:blur(24px) saturate(160%);border-bottom:.5px solid var(--border);transition:border-color var(--dur) var(--ease);}
+nav.scrolled{border-bottom-color:var(--border2);}
+.nav-logo{font-family:var(--font-title);font-size:21px;letter-spacing:3px;color:var(--gold);}
+.nav-logo span{color:var(--text3);}
+.nav-links{display:flex;gap:2.5rem;}
+.nav-links a{font-family:var(--font-cond);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);position:relative;padding-bottom:3px;transition:color var(--dur) var(--ease);}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:.5px;background:var(--gold);transition:width var(--dur) var(--ease);}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;background:var(--gold);color:#000;padding:8px 22px;font-weight:700;transition:background var(--dur) var(--ease);}
+.nav-cta:hover{background:var(--gold-light);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;padding:6px;}
+.nav-toggle span{width:22px;height:1.5px;background:var(--text2);display:block;transition:all var(--dur) var(--ease);}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(8,8,9,.98);backdrop-filter:blur(24px);border-bottom:.5px solid var(--border2);padding:2rem 2.5rem;flex-direction:column;gap:1.5rem;z-index:999;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:var(--font-cond);font-size:20px;letter-spacing:3px;text-transform:uppercase;color:var(--text2);transition:color var(--dur) var(--ease);}
+.mobile-menu a:hover{color:var(--gold);}
+
+/* LOADING STATE */
+#loading-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:1rem;}
+.loading-spinner{width:36px;height:36px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);}
+
+/* 404 STATE */
+#not-found{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:4rem 2rem;}
+.nf-code{font-family:var(--font-title);font-size:120px;color:rgba(201,168,76,.08);line-height:1;}
+.nf-title{font-family:var(--font-title);font-size:42px;letter-spacing:2px;color:var(--text2);margin-bottom:.5rem;}
+.nf-sub{font-size:14px;color:var(--text3);margin-bottom:2rem;}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:.5px solid var(--border2);color:var(--gold);font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:all var(--dur) var(--ease);}
+.btn-outline:hover{background:var(--gold-dim);}
+
+/* ARTICLE WRAPPER */
+#article-content{display:none;}
+
+/* ARTICLE HERO */
+.article-hero{padding:90px 2.5rem 4rem;position:relative;overflow:hidden;border-bottom:.5px solid var(--border);}
+.article-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 75% 40%,rgba(192,57,43,.09),transparent),radial-gradient(ellipse 35% 55% at 10% 70%,rgba(201,168,76,.05),transparent);pointer-events:none;}
+.article-hero-inner{max-width:840px;margin:0 auto;position:relative;}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-cond);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:2rem;transition:color var(--dur) var(--ease);}
+.back-link:hover{color:var(--gold);}
+.back-link::before{content:'â†';font-size:14px;}
+.article-tag{font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
+.article-tag::before{content:'';width:16px;height:.5px;background:var(--red);flex-shrink:0;}
+.article-tag.plat{color:#6B9FD4;}.article-tag.plat::before{background:#6B9FD4;}
+.article-tag.cryp{color:var(--gold);}.article-tag.cryp::before{background:var(--gold);}
+.article-h1{font-family:var(--font-title);font-size:clamp(44px,7vw,84px);line-height:.94;letter-spacing:2px;margin-bottom:1.25rem;}
+.article-meta{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;font-family:var(--font-cond);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);}
+.article-meta-sep{color:var(--border2);}
+
+/* COVER IMAGE */
+.article-cover{max-width:1200px;margin:0 auto;padding:0 2.5rem;}
+.article-cover img{width:100%;max-height:440px;object-fit:cover;border:.5px solid var(--border);display:block;}
+.article-cover-placeholder{width:100%;height:320px;display:flex;align-items:center;justify-content:center;border:.5px solid var(--border);}
+.article-cover-placeholder.official{background:linear-gradient(135deg,#1A0A08,#3D1510,#1A0A08);}
+.article-cover-placeholder.platform{background:linear-gradient(135deg,#0A0A18,#151535,#0A0A18);}
+.article-cover-placeholder.crypto{background:linear-gradient(135deg,#0A1208,#122010,#0A1208);}
+.article-cover-placeholder .big-text{font-family:var(--font-title);font-size:80px;letter-spacing:6px;opacity:.08;color:#fff;}
+
+/* ARTICLE BODY */
+.article-layout{max-width:840px;margin:0 auto;padding:3.5rem 2.5rem;}
+.article-body{font-size:16px;color:var(--text2);line-height:1.9;}
+.article-body p{margin-bottom:1.4rem;}
+.article-body h2{font-family:var(--font-title);font-size:36px;letter-spacing:1px;color:var(--gold);margin:2.5rem 0 1rem;}
+.article-body h3{font-family:var(--font-cond);font-size:20px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text);margin:2rem 0 .75rem;}
+.article-body ul{padding-left:1.5rem;margin-bottom:1.4rem;}
+.article-body ul li{margin-bottom:.5rem;color:var(--text2);}
+.article-body ul li::marker{color:var(--gold);}
+.article-body blockquote{border-left:2px solid var(--gold);padding:.75rem 1.25rem;background:rgba(201,168,76,.04);margin:1.75rem 0;color:var(--text);font-style:italic;}
+.article-body a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+.article-body strong{color:var(--text);font-weight:600;}
+.article-body img{max-width:100%;border:.5px solid var(--border);margin:1.5rem 0;}
+
+/* SHARE BAR */
+.share-bar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding:1.25rem 0;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);margin:2rem 0;}
+.share-label{font-family:var(--font-cond);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);}
+.share-btn{font-family:var(--font-cond);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;background:var(--surface);border:.5px solid var(--border);color:var(--text2);transition:all var(--dur) var(--ease);}
+.share-btn:hover{background:var(--surface2);border-color:var(--border2);color:var(--gold);}
+.share-copy-msg{font-family:var(--font-cond);font-size:11px;color:var(--gold);opacity:0;transition:opacity var(--dur) var(--ease);}
+.share-copy-msg.show{opacity:1;}
+
+/* RELATED */
+.related-section{border-top:.5px solid var(--border);padding-top:3rem;margin-top:3rem;}
+.related-label{font-family:var(--font-cond);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:.5rem;}
+.related-label::before{content:'';width:28px;height:.5px;background:var(--gold);}
+.related-title{font-family:var(--font-title);font-size:38px;letter-spacing:2px;margin-bottom:2rem;}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);border:.5px solid var(--border);}
+.rel-card{background:var(--surface);padding:1.5rem;cursor:pointer;position:relative;overflow:hidden;transition:background var(--dur) var(--ease);}
+.rel-card:hover{background:var(--surface2);}
+.rel-tag{font-family:var(--font-cond);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+.rel-title{font-family:var(--font-cond);font-size:17px;font-weight:700;line-height:1.3;color:var(--text);transition:color var(--dur) var(--ease);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.rel-card:hover .rel-title{color:var(--gold);}
+.rel-date{font-family:var(--font-cond);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-top:.75rem;}
+
+/* CTA SECTION */
+.article-cta{background:linear-gradient(135deg,rgba(192,57,43,.14) 0%,rgba(120,25,15,.08) 100%);border-top:.5px solid rgba(192,57,43,.28);border-bottom:.5px solid rgba(192,57,43,.28);padding:4.5rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+.article-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 100% at 50% 50%,rgba(192,57,43,.06),transparent);pointer-events:none;}
+.article-cta-eyebrow{font-family:var(--font-cond);font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.article-cta-title{font-family:var(--font-title);font-size:clamp(44px,7vw,72px);line-height:.95;letter-spacing:2px;margin-bottom:.75rem;}
+.article-cta-title span{color:var(--gold);}
+.article-cta-sub{font-size:15px;color:var(--text2);margin-bottom:2.5rem;position:relative;}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;padding:15px 36px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;position:relative;overflow:hidden;transition:all var(--dur) var(--ease);}
+.btn-primary::before{content:'';position:absolute;top:0;left:-100%;bottom:0;width:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transition:left .55s ease;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.28);}
+.btn-primary:hover::before{left:100%;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:.5px solid var(--border);padding:4rem 2.5rem 2.5rem;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:3rem;margin-bottom:3rem;}
+.footer-logo{font-family:var(--font-title);font-size:28px;letter-spacing:3px;color:var(--gold);margin-bottom:.4rem;}
+.footer-logo span{color:var(--text3);}
+.footer-tagline{font-size:13px;color:var(--text3);margin-bottom:1rem;}
+.footer-links{display:flex;gap:1.75rem;flex-wrap:wrap;}
+.footer-links a{font-family:var(--font-cond);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);transition:color var(--dur) var(--ease);}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;padding-top:2rem;border-top:.5px solid var(--border);font-size:11px;color:var(--text3);}
+.footer-disclaimer{max-width:680px;line-height:1.85;}
+
+@media(max-width:768px){
+  nav .nav-links,nav .nav-cta{display:none;}
+  .nav-toggle{display:flex;}
+  .article-hero{padding:90px 1.5rem 3rem;}
+  .article-layout{padding:2.5rem 1.5rem;}
+  .article-cover{padding:0 1.5rem;}
+  .article-cta{padding:3.5rem 1.5rem;}
+  footer{padding:3rem 1.5rem 2rem;}
+  .footer-top{flex-direction:column;gap:1.5rem;}
+  .footer-bottom{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="/index.html" class="nav-logo">GTA6<span>Store</span>.in</a>
+  <div class="nav-links">
+    <a href="/index.html#pre-order">Pre-Order</a>
+    <a href="/index.html#how-it-works">How it Works</a>
+    <a href="/news.html" class="active">News</a>
+    <a href="/index.html#faq">FAQ</a>
+  </div>
+  <a href="/index.html#booking" class="nav-cta">Pre-Book Now</a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/index.html#pre-order" onclick="closeMobileMenu()">Pre-Order</a>
+  <a href="/index.html#how-it-works" onclick="closeMobileMenu()">How it Works</a>
+  <a href="/news.html" onclick="closeMobileMenu()">News</a>
+  <a href="/index.html#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="/index.html#booking" class="nav-cta" style="width:fit-content" onclick="closeMobileMenu()">Pre-Book Now</a>
+</div>
+
+<!-- LOADING STATE -->
+<div id="loading-state">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading articleâ€¦</div>
+</div>
+
+<!-- 404 STATE -->
+<div id="not-found">
+  <div class="nf-code">404</div>
+  <div class="nf-title">Article Not Found</div>
+  <p class="nf-sub">This article doesn't exist or has been removed.</p>
+  <a href="/news.html" class="btn-outline">â† Back to News</a>
+</div>
+
+<!-- ARTICLE (populated by JS) -->
+<div id="article-content">
+  <!-- Article Hero -->
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/news.html" class="back-link">All News</a>
+      <div class="article-tag" id="a-tag">News</div>
+      <h1 class="article-h1" id="a-title"></h1>
+      <div class="article-meta">
+        <span>GTA6Store Editorial</span>
+        <span class="article-meta-sep">Â·</span>
+        <span id="a-date"></span>
+        <span class="article-meta-sep">Â·</span>
+        <span id="a-read-time"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cover Image -->
+  <div class="article-cover" id="a-cover-wrap">
+    <div class="article-cover-placeholder" id="a-cover-placeholder">
+      <span class="big-text">GTA VI</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="article-layout">
+    <div class="article-body" id="a-body"></div>
+
+    <!-- Share -->
+    <div class="share-bar">
+      <span class="share-label">Share</span>
+      <button class="share-btn" onclick="shareTwitter()">Twitter / X</button>
+      <button class="share-btn" onclick="shareReddit()">Reddit</button>
+      <button class="share-btn" onclick="copyLink()">Copy Link</button>
+      <span class="share-copy-msg" id="copy-msg">Link copied!</span>
+    </div>
+
+    <!-- Related -->
+    <div class="related-section" id="related-section" style="display:none;">
+      <div class="related-label">More GTA 6 News</div>
+      <h3 class="related-title">Keep Reading</h3>
+      <div class="related-grid" id="related-grid"></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <div class="article-cta-eyebrow">Ready to Secure Your Copy?</div>
+    <h2 class="article-cta-title">Pre-Book <span>GTA 6</span> Now</h2>
+    <p class="article-cta-sub">Pay a small crypto advance â€” 100% refundable. Instant Booking ID. Worldwide.</p>
+    <a href="/index.html#booking" class="btn-primary">Pre-Book Now â†’</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">GTA6<span>Store</span>.in</div>
+        <div class="footer-tagline">The Independent GTA 6 Pre-Booking Platform</div>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html#pre-order">Pre-Order</a>
+        <a href="/index.html#booking">Book Now</a>
+        <a href="/news.html">News</a>
+        <a href="/index.html#faq">FAQ</a>
+        <a href="/index.html">Home</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-disclaimer">gta6store.co.uk is an independent third-party pre-booking service, not affiliated with Rockstar Games or Take-Two Interactive. Grand Theft Auto and GTA are registered trademarks of Take-Two Interactive Software, Inc.</div>
+      <div>Â© 2026 gta6store.co.uk</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* â”€â”€ Supabase Config â”€â”€ */
+const SUPABASE_URL = 'https://egyvrdobllhwqwrfpkrg.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_ZFSmkYuW7lsUYoHpeo4_Iw_9s68t1Fd';
+
+let db = null;
+let currentArticle = null;
+
+/* â”€â”€ Fallback articles â”€â”€ */
+const FALLBACK = {
+  'gta-6-release-date-november-2026': {
+    slug:'gta-6-release-date-november-2026',
+    title:'GTA 6 Officially Confirmed for November 19, 2026',
+    excerpt:'Rockstar Games has officially announced the final release date.',
+    content:`<p>Rockstar Games has officially announced the final release date for <strong>Grand Theft Auto VI</strong>. The game will launch worldwide on <strong>PS5 and Xbox Series X/S</strong> on <strong>November 19, 2026</strong> â€” making it one of the biggest gaming releases in history.</p><h2>What We Know</h2><p>The announcement came via Rockstar's official channels, confirming a global simultaneous release. The date ends years of speculation and positions GTA 6 as the centerpiece of the 2026 holiday gaming season.</p><blockquote>Grand Theft Auto VI will be released worldwide on November 19, 2026 for PlayStation 5 and Xbox Series X/S.</blockquote><h2>Pre-Order Availability</h2><p>gta6store.co.uk has opened pre-booking slots for all major platforms. Pay a small refundable crypto advance to secure your copy and receive an instant Booking ID.</p><p>All advances are <strong>100% refundable</strong> if you change your mind before the balance payment deadline.</p><h3>Supported Platforms</h3><ul><li>PlayStation 5 â€” Standard and Deluxe Edition</li><li>Xbox Series X/S â€” Standard and Deluxe Edition</li><li>PC â€” Estimated 2027 (waitlist now open)</li></ul>`,
+    tag:'Official',
+    meta_title:'GTA 6 Release Date Confirmed â€” November 19, 2026 | GTA6Store',
+    meta_description:'Rockstar Games confirms GTA 6 releases November 19, 2026 on PS5 and Xbox Series X/S. Pre-book now with crypto on GTA6Store.',
+    cover_image_url:'',
+    published_date:'2026-05-01'
+  },
+  'gta-6-pc-version-2027': {
+    slug:'gta-6-pc-version-2027',
+    title:'PC Version Reportedly Coming in 2027 â€” What We Know',
+    excerpt:'Leaked reports suggest a PC release could follow the console launch.',
+    content:`<p>Multiple industry insiders and leaked documents suggest that <strong>GTA 6 for PC</strong> could arrive approximately <strong>12 to 18 months after the console launch</strong> in November 2026 â€” putting an estimated PC release date somewhere in <strong>late 2027 to early 2028</strong>.</p><h2>Why the Delay?</h2><p>Rockstar Games has historically released PC versions of GTA after console launches. GTA 5 arrived on PC in April 2015, roughly 18 months after the PS3/Xbox 360 debut. A similar pattern for GTA 6 is widely expected.</p><h2>PC Edition Pre-Booking</h2><p>gta6store.co.uk is currently accepting PC Edition waitlist reservations. Your place in the queue is secured with a small crypto advance â€” and <strong>fully refunded</strong> if the PC version is significantly delayed or cancelled.</p><ul><li>Reserve your PC slot now</li><li>Option to upgrade to PS5 or Xbox if PC is delayed</li><li>Instant Booking ID confirmation</li></ul>`,
+    tag:'Platform',
+    meta_title:'GTA 6 PC Release Date 2027 â€” What We Know | GTA6Store',
+    meta_description:'GTA 6 PC version expected in 2027. Pre-book your PC Edition waitlist slot now on GTA6Store with crypto. 100% refundable.',
+    cover_image_url:'',
+    published_date:'2026-04-10'
+  },
+  'gta-6-pre-booking-with-crypto': {
+    slug:'gta-6-pre-booking-with-crypto',
+    title:'Why GTA 6 Pre-Booking With Crypto Makes Sense in 2026',
+    excerpt:'Crypto payments offer instant global transfers with no chargebacks.',
+    content:`<p>As the gaming industry goes global, traditional payment methods are showing their limitations. <strong>Credit cards</strong> get declined across borders. <strong>PayPal</strong> has regional restrictions. <strong>Bank transfers</strong> take days.</p><p>Crypto solves all of this â€” and that's exactly why gta6store.co.uk accepts cryptocurrency for all pre-bookings.</p><h2>Why Crypto Works for Pre-Booking</h2><ul><li><strong>Instant global transfers</strong> â€” No waiting, no bank delays</li><li><strong>No chargebacks</strong> â€” Secure for both buyer and seller</li><li><strong>Low fees</strong> â€” Especially USDT and USDC on layer-2 networks</li><li><strong>Privacy</strong> â€” No need to share card details</li><li><strong>Works everywhere</strong> â€” No regional restrictions</li></ul><h2>Accepted Cryptocurrencies</h2><p>We accept <strong>Bitcoin (BTC)</strong>, <strong>Ethereum (ETH)</strong>, <strong>USDT</strong>, <strong>USDC</strong>, and <strong>Solana (SOL)</strong> via BTCPay Server.</p><blockquote>All crypto advances are 100% refundable to your original wallet address if GTA 6 is delayed or if you change your mind.</blockquote><h2>How to Pay</h2><p>Simply select your edition and platform on gta6store.co.uk, choose your preferred crypto, and send the exact amount to the wallet address shown. Your Booking ID arrives by email within minutes of blockchain confirmation.</p>`,
+    tag:'Crypto',
+    meta_title:'GTA 6 Pre-Booking With Crypto â€” BTC, ETH, USDT | GTA6Store',
+    meta_description:'Why pay crypto to pre-book GTA 6? Instant global transfers, no chargebacks, low fees. Accept BTC, ETH, USDT, USDC, SOL on GTA6Store.',
+    cover_image_url:'',
+    published_date:'2026-03-15'
+  }
+};
+
+/* â”€â”€ Helpers â”€â”€ */
+function fmtDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+}
+function readingTime(html) {
+  const text = html ? html.replace(/<[^>]+>/g,'') : '';
+  const words = text.trim().split(/\s+/).length;
+  const mins = Math.max(1, Math.round(words / 200));
+  return mins + ' min read';
+}
+function tagClass(tag) {
+  const t = (tag||'').toLowerCase();
+  if (t === 'platform') return 'plat';
+  if (t === 'crypto') return 'cryp';
+  return '';
+}
+function placeholderClass(tag) {
+  const t = (tag||'').toLowerCase();
+  return t === 'official' ? 'official' : t === 'platform' ? 'platform' : t === 'crypto' ? 'crypto' : 'news';
+}
+
+/* â”€â”€ Apply article to DOM â”€â”€ */
+function applyArticle(a) {
+  currentArticle = a;
+
+  /* SEO */
+  const title = a.meta_title || (a.title + ' â€” GTA6Store');
+  const desc  = a.meta_description || a.excerpt || '';
+  const img   = a.cover_image_url || 'https://gta6store.co.uk/og-image.jpg';
+  const url   = 'https://gta6store.co.uk/news/' + a.slug;
+
+  document.title = title;
+  document.getElementById('canonical-link').href = url;
+  document.getElementById('og-url').content = url;
+  document.getElementById('og-title').setAttribute('content', title);
+  document.getElementById('og-desc').setAttribute('content', desc);
+  document.getElementById('og-image').setAttribute('content', img);
+  document.getElementById('tw-title').setAttribute('content', title);
+  document.getElementById('tw-desc').setAttribute('content', desc);
+  document.getElementById('tw-image').setAttribute('content', img);
+
+  /* JSON-LD */
+  document.getElementById('article-schema').textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": a.title,
+    "description": desc,
+    "image": img,
+    "datePublished": a.published_date,
+    "author": { "@type": "Organization", "name": "GTA6Store" },
+    "publisher": { "@type": "Organization", "name": "GTA6Store", "url": "https://gta6store.co.uk" },
+    "url": url
+  });
+
+  /* DOM */
+  const tagEl = document.getElementById('a-tag');
+  tagEl.textContent = a.tag || 'News';
+  tagEl.className = 'article-tag ' + tagClass(a.tag);
+
+  document.getElementById('a-title').textContent = a.title;
+  document.getElementById('a-date').textContent = fmtDate(a.published_date);
+  document.getElementById('a-read-time').textContent = readingTime(a.content);
+
+  /* Cover */
+  const coverWrap = document.getElementById('a-cover-wrap');
+  const ph = document.getElementById('a-cover-placeholder');
+  if (a.cover_image_url) {
+    ph.style.display = 'none';
+    const img2 = document.createElement('img');
+    img2.src = a.cover_image_url;
+    img2.alt = a.title;
+    coverWrap.appendChild(img2);
+  } else {
+    ph.className = 'article-cover-placeholder ' + placeholderClass(a.tag);
+  }
+
+  /* Content */
+  const body = a.content || ('<p>' + (a.excerpt || '') + '</p>');
+  document.getElementById('a-body').innerHTML = body;
+
+  /* Show */
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('article-content').style.display = 'block';
+}
+
+/* â”€â”€ Load related â”€â”€ */
+async function loadRelated(slug, tag) {
+  let related = [];
+  if (db) {
+    try {
+      const { data } = await db.from('articles')
+        .select('slug, title, tag, published_date')
+        .eq('is_published', true)
+        .neq('slug', slug)
+        .order('published_date', { ascending: false })
+        .limit(3);
+      if (data && data.length) related = data;
+    } catch(e) {}
+  } else {
+    related = Object.values(FALLBACK).filter(a => a.slug !== slug).slice(0, 3);
+  }
+  if (!related.length) return;
+
+  const sec = document.getElementById('related-section');
+  const grid = document.getElementById('related-grid');
+  sec.style.display = 'block';
+  grid.innerHTML = related.map(r => `
+    <div class="rel-card" onclick="location.href='/article.html?slug=${encodeURIComponent(r.slug)}'">
+      <div class="rel-tag">${r.tag || 'News'}</div>
+      <div class="rel-title">${r.title}</div>
+      <div class="rel-date">${fmtDate(r.published_date)}</div>
+    </div>
+  `).join('');
+}
+
+/* â”€â”€ Share â”€â”€ */
+function shareTwitter() {
+  const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent((currentArticle ? currentArticle.title : 'GTA 6 News') + ' â€” GTA6Store') + '&url=' + encodeURIComponent(location.href);
+  window.open(url, '_blank', 'width=550,height=450');
+}
+function shareReddit() {
+  const url = 'https://www.reddit.com/submit?url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(currentArticle ? currentArticle.title : 'GTA 6 News');
+  window.open(url, '_blank');
+}
+function copyLink() {
+  navigator.clipboard.writeText(location.href).then(() => {
+    const msg = document.getElementById('copy-msg');
+    msg.classList.add('show');
+    setTimeout(() => msg.classList.remove('show'), 2500);
+  });
+}
+
+/* â”€â”€ Reading progress bar â”€â”€ */
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('main-nav').classList.toggle('scrolled', scrolled > 40);
+}, { passive: true });
+
+/* â”€â”€ Mobile nav â”€â”€ */
+const navToggle = document.getElementById('nav-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+navToggle.addEventListener('click', () => { navToggle.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+function closeMobileMenu() { navToggle.classList.remove('open'); mobileMenu.classList.remove('open'); }
+
+/* â”€â”€ Init â”€â”€ */
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!SUPABASE_URL.includes('YOUR_') && !SUPABASE_KEY.includes('YOUR_')) {
+    try { db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
+  }
+
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+
+  if (!slug) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('not-found').style.display = 'flex';
+    return;
+  }
+
+  let article = null;
+  if (db) {
+    try {
+      const { data, error } = await db.from('articles')
+        .select('*')
+        .eq('slug', slug)
+        .eq('is_published', true)
+        .single();
+      if (!error && data) article = data;
+    } catch(e) {}
+  } else {
+    article = FALLBACK[slug] || null;
+  }
+
+  if (!article) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('not-found').style.display = 'flex';
+    return;
+  }
+
+  applyArticle(article);
+  loadRelated(slug, article.tag);
+});
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,7 @@
+{
+  "name": "gta6store",
+  "version": "1.0.0",
+  "description": "GTA6Store — Independent GTA 6 Pre-Booking Platform",
+  "engines": { "node": "18.x" },
+  "private": true
+}
