@@ -32,10 +32,10 @@ INSERT INTO site_settings (key, value) VALUES
   ('seo_title',          'GTA6Store — Pre-Book Grand Theft Auto VI | Pay with Crypto | PS5 · Xbox · PC'),
   ('seo_description',    'Pre-book GTA 6 for PS5, Xbox Series X/S and PC. Pay advance with Bitcoin, Ethereum, USDT or USDC. Get instant Booking ID. Worldwide. Launch: November 19, 2026.'),
   ('seo_keywords',       'GTA 6 pre-order, pre order GTA 6, GTA VI pre-booking, buy GTA 6 crypto, GTA 6 PS5, GTA 6 Xbox, Grand Theft Auto 6 release date 2026'),
-  ('og_image_url',       'https://gta6store.in/og-image.jpg'),
+  ('og_image_url',       'https://gta6store.co.uk/og-image.jpg'),
   ('og_title',           'GTA6Store — Pre-Book GTA 6 | Pay with Crypto'),
   ('og_description',     'Pre-book Grand Theft Auto VI for PS5, Xbox or PC. Pay with Bitcoin, Ethereum, USDT or USDC. Instant Booking ID. Worldwide. Nov 19, 2026.'),
-  ('canonical_url',      'https://gta6store.in/'),
+  ('canonical_url',      'https://gta6store.co.uk/'),
 
   -- Hero content
   ('hero_badge_text',    'Official Release: November 19, 2026'),

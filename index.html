@@ -50,7 +50,7 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet"/></noscript>
 
 <!-- Supabase JS Client -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4"></script>
 
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      STRUCTURED DATA (JSON-LD)
@@ -1325,10 +1325,10 @@ function initSupabase() {
   }
   try {
     db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    console.log('GTA6Store: Supabase connected ✅');
+    console.log('GTA6Store: Supabase connected ✅', SUPABASE_URL);
     return true;
   } catch(e) {
-    console.error('GTA6Store: Supabase init failed', e);
+    console.error('GTA6Store: Supabase init failed ❌', e.message);
     return false;
   }
 }
