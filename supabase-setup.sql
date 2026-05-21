@@ -198,9 +198,9 @@ CREATE POLICY "Admin can write articles"
   USING (true)
   WITH CHECK (true);
 
--- Admin can update site_settings (prices, SEO, etc.)
-CREATE POLICY "Admin can update site_settings"
-  ON site_settings FOR UPDATE
+-- Admin can write site_settings (UPDATE existing + INSERT new keys if needed)
+CREATE POLICY "Admin can write site_settings"
+  ON site_settings FOR ALL
   USING (true)
   WITH CHECK (true);
 

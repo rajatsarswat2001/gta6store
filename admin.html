@@ -1311,18 +1311,23 @@ const SETTING_MAP = {
 async function saveSettings(keys) {
   if (!db) { toast('Not connected to Supabase','error'); return; }
   try {
+    // Use UPDATE (not upsert) — RLS policy only grants UPDATE on site_settings for anon key.
+    // All rows are pre-seeded by supabase-setup.sql so UPDATE is always sufficient.
     const updates = keys.map(key => {
       const inputId = SETTING_MAP[key];
       const val = inputId ? (document.getElementById(inputId)||{value:''}).value : '';
-      return db.from('site_settings').upsert({key, value: val}, {onConflict:'key'});
+      return db.from('site_settings')
+        .update({ value: val, updated_at: new Date().toISOString() })
+        .eq('key', key);
     });
     const results = await Promise.all(updates);
-    const errs = results.filter(r=>r.error);
+    const errs = results.filter(r => r.error);
     if (errs.length) throw new Error(errs[0].error.message);
-    toast('Settings saved ✓ — changes live on site','success');
+    toast('Settings saved \u2713 \u2014 changes live on site','success');
     loadSettings();
   } catch(e) { toast('Save failed: '+e.message,'error'); }
 }
+
 
 /* ═══════════════════════════════════════════════════
    EXPORT CSV
